@@ -4,6 +4,7 @@ export type CountryProps = {
     png: string;
     svg: string;
   };
+  favorite: boolean;
 };
 
 export type CountryRequestProps = {
