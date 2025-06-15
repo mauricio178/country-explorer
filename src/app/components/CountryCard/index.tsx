@@ -24,7 +24,7 @@ export default function CountryCard(props: CountryCardProps) {
   // };
 
   return (
-    <li className={favorite ? styles.containerFavorite : styles.container}>
+    <li className={styles.container}>
       <img src={flag} alt={name} />
       <h1>{name}</h1>
 
