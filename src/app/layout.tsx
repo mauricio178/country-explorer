@@ -13,8 +13,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Search Country",
-  description: "Search Country",
+  title: "Country Explorer",
+  description: "Explore countries and their information",
+  icons: {
+    icon: "/new-logo-search.png",
+  },
 };
 
 export default function RootLayout({

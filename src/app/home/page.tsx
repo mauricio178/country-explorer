@@ -3,6 +3,7 @@
 import api from "@/lib/axios";
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
+import Header from "../components/Header";
 import { COUNTRY_PATHS } from "../constants/paths";
 import { CountryProps, CountryRequestProps } from "../types/types";
 import styles from "./page.module.css";
@@ -18,7 +19,7 @@ export default function Home() {
         },
       })
       .then((response) => {
-        return response.data.slice(0, 10);
+        return response.data.slice(0, 50);
       })
       .catch((error: AxiosError) => {
         console.error(error);
@@ -58,11 +59,15 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      {countries.map((country: CountryProps) => (
-        <div key={country.name}>
-          <h1>{country.name}</h1>
-        </div>
-      ))}
+      <Header />
+
+      <div className={styles.countries}>
+        {countries.map((country: CountryProps) => (
+          <div key={country.name} className={styles.country}>
+            <h1>{country.name}</h1>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
