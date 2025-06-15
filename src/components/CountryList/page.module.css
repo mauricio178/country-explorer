@@ -1,0 +1,36 @@
+.container {
+    background-color: var(--tertiary);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-family: var(--font-nunito), var(--font-nunito-sans), Arial, Helvetica, sans-serif;
+    font-weight: 600;
+
+    input {
+        width: 100%;
+        border: none;
+        font-weight: 600;
+        padding: 8px 16px;
+        background-color: transparent;
+        font-size: 16px;
+        color: var(--gray-500);
+
+        &::placeholder {
+            font-family: var(--font-nunito), var(--font-nunito-sans), Arial, Helvetica, sans-serif;
+            color: var(--gray-400);
+        }
+
+    }
+
+    svg {
+        font-size: 42px;
+        padding: 8px;
+    }
+
+    :focus {
+        outline: none;
+    }
+
+}

@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  background-color: var(--primary);
+  box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.36);
+
+  .logo {
+    margin: 40px 82px 35px 100px;
+
+    img {
+      transition: 0.3s;
+      height: 45px;
+
+      &:hover {
+        transition: 0.3s;
+        height: 47px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media (max-width: 850px) {
+  .container {
+    height: 60px;
+    justify-content: center;
+
+    .logo {
+      margin: 24px 16px 24px 16px;
+
+      img {
+        height: 35px;
+      }
+    }
+  }
+}

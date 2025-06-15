@@ -1,21 +1,27 @@
 ## Getting Started
 
-First, run the development server:
+## LOCAL
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Make sure you have all dependencies necessary installed. run:
+`npm i` or `npm install`
 
-Open [http://localhost:3000] with your browser to see the result.
+To run 
+`npm run dev`
+The application will run on port `3001` by default
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
+## DOCKER
+
+To build the Docker image, run the following command in the project root:
+`docker:build`
+
+To run the Docker container, use the following command:
+`docker:run`
+The application will run on port `3000` by default
 
 
 ### About the project
+
+This is a lightweight web application built with Next.js, React, and TypeScript, designed to allow users to search and filter countries. The app fetches data from a public countries API. 
+
+The entire project is Dockerized to ensure easy setup, consistent development environments, and streamlined deploymen

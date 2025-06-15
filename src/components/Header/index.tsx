@@ -1,0 +1,11 @@
+import styles from "./page.module.css";
+
+export default function Header() {
+  return (
+    <div className={styles.container}>
+      <div className={styles.logo}>
+        <img src="/full-logo.png" alt="Country Explorer" />
+      </div>
+    </div>
+  );
+}
