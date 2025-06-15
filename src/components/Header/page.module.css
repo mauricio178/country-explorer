@@ -27,3 +27,18 @@
     }
   }
 }
+
+@media (max-width: 850px) {
+  .container {
+    height: 60px;
+    justify-content: center;
+
+    .logo {
+      margin: 24px 16px 24px 16px;
+
+      img {
+        height: 35px;
+      }
+    }
+  }
+}

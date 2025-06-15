@@ -13,20 +13,10 @@ interface CountryCardProps {
 export default function CountryCard(props: CountryCardProps) {
   const { name, flag, favorite, handleFavorite } = props;
 
-  // const handleFavorite = () => {
-  //   if (favoriteCountries.includes(name)) {
-  //     setFavorite(false);
-  //     setFavoriteCountries(favoriteCountries.filter((country) => country !== name));
-  //   } else {
-  //     setFavorite(true);
-  //     setFavoriteCountries([...favoriteCountries, name]);
-  //   }
-  // };
-
   return (
     <li className={styles.container}>
       <img src={flag} alt={name} />
-      <h1>{name}</h1>
+      <h5>{name}</h5>
 
       <div onClick={handleFavorite} className={styles.favorite}>
         {favorite ? <MdOutlineFavorite /> : <MdFavoriteBorder />}

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Nunito, Nunito_Sans } from "next/font/google";
-import "./globals.css";
+import "../styles/globals.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const geistSans = Nunito({
   variable: "--font-nunito",
@@ -29,6 +31,18 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
+        <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={true}
+          newestOnTop={true}
+          closeOnClick={true}
+          rtl={false}
+          pauseOnFocusLoss={true}
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
       </body>
     </html>
   );

@@ -1,22 +1,24 @@
+/* eslint-disable react/jsx-no-undef */
 "use client";
 
+import CountryList from "@/components/CountryList";
+import { STORAGE_KEY_ALL_COUNTRIES } from "@/constants/varibles";
 import api from "@/lib/axios";
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
-import CountryCard from "../components/CountryCard";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import Input from "../components/Input";
-import LoadingGif from "../components/LoadingGif";
-import { COUNTRY_PATHS } from "../constants/paths";
-import { CountryProps, CountryRequestProps } from "../types/types";
-import styles from "./page.module.css";
 import { MdSearch } from "react-icons/md";
 import { toast } from "react-toastify";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
+import Input from "../../components/Input";
+import { COUNTRY_PATHS } from "../../constants/paths";
+import { CountryRequestProps } from "../../types/types";
+import styles from "./page.module.css";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
-  const [countries, setCountries] = useState<CountryProps[]>([]);
+  const [countries, setCountries] = useState<CountryRequestProps[]>([]);
+  const [filteredCountries, setFilteredCountries] = useState<string[]>([]);
 
   const [search, setSearch] = useState("");
 
@@ -37,37 +39,71 @@ export default function Home() {
 
     if (response) {
       setCountries(
-        response.map((country: CountryRequestProps) => ({
-          name: country.name.common,
-          flags: {
-            png: country.flags.png,
-            svg: country.flags.svg,
-          },
-          favorite: false,
-        }))
+        response
+          .sort((a, b) => a.name.common.localeCompare(b.name.common))
+          .map((country: CountryRequestProps) => {
+            const id = crypto.randomUUID();
+
+            return {
+              ...country,
+              id,
+              favorite: false,
+            };
+          })
       );
+
+      localStorage.setItem(STORAGE_KEY_ALL_COUNTRIES, JSON.stringify(response));
     }
   };
 
-  const getCountriesBySearch = async (search: string) => {
+  const handleFavorite = (country: CountryRequestProps) => {
+    toast.success(`${country.name.common} adicionado aos favoritos!`);
+  };
+
+  function getCountriesBySearch() {
+    if (search.length === 0) {
+      setFilteredCountries([]);
+      return;
+    }
+
     setIsLoading(true);
-    if (search.length > 0) {
-      console.log({ search });
-      console.log({ countries });
+
+    const filteredIds: string[] = [];
+
+    function normalizeString(string: string) {
+      return string
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase();
+    }
+
+    if (search) {
+      countries?.forEach((country) => {
+        if (
+          normalizeString(country.name.common).includes(normalizeString(search))
+        ) {
+          filteredIds.push(country.id);
+        }
+      });
     }
 
     setTimeout(() => {
+      setFilteredCountries(filteredIds);
+
+      if (filteredIds.length === 0) {
+        toast.error("Nenhum país encontrado");
+      }
+
       setIsLoading(false);
-      toast("Países carregados com sucesso");
-    }, 2000);
-  };
+    }, 300);
+  }
 
   useEffect(() => {
     getCountries();
   }, []);
 
   useEffect(() => {
-    getCountriesBySearch(search);
+    getCountriesBySearch();
   }, [search]);
 
   return (
@@ -76,40 +112,41 @@ export default function Home() {
 
       <div className={styles.content}>
         <div className={styles.titlePage}>
-          <h2>Procure por Países</h2>
-        </div>
-
-        <div className={styles.head}>
-          <Input
-            placeholder="Pesquisar"
-            type="text"
-            value={search}
-            onChange={setSearch}
-            icon={<MdSearch />}
-          />
-
-          <div className={styles.filter}></div>
-        </div>
-
-        <ul className={styles.countries}>
-          {isLoading ? (
-            <div className={styles.loading}>
-              <LoadingGif />
+          <div className={styles.order}>
+            <h2>Ordenar</h2>
+            <div>
+              <p>AZ</p>
             </div>
-          ) : (
-            <>
-              {countries.map((country: CountryProps) => (
-                <CountryCard
-                  key={country.name}
-                  name={country.name}
-                  flag={country.flags.png}
-                  favorite={country.favorite}
-                  handleFavorite={() => {}}
-                />
-              ))}
-            </>
-          )}
-        </ul>
+          </div>
+        </div>
+
+        <Input
+          placeholder="Pesquisar"
+          type="text"
+          value={search}
+          onChange={setSearch}
+          icon={<MdSearch />}
+        />
+
+        <CountryList
+          countries={countries}
+          filteredCountries={filteredCountries}
+          search={search}
+          isLoading={isLoading}
+          handleFavorite={handleFavorite}
+        />
+
+        <div className={styles.counter}>
+          <p>
+            Mostrando{" "}
+            <strong>
+              {filteredCountries.length === 0
+                ? countries.length
+                : filteredCountries.length}{" "}
+            </strong>
+            de <strong> {countries.length}</strong> países
+          </p>
+        </div>
       </div>
 
       <Footer />

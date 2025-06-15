@@ -16,21 +16,38 @@
 
     .titlePage {
       display: flex;
-      flex-direction: column;
       align-items: flex-start;
-      justify-content: center;
+      flex-direction: column;
+      justify-content: space-between;
       width: 100%;
+      padding-top: 16px;
 
-      h2 {
-        font-size: 24px;
-        font-weight: 800;
-        color: var(--secondary);
+
+      .order {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        padding: 8px;
+        border-radius: 8px;
+        border: 2px solid var(--secondary);
+
+
+        h2 {
+          font-size: 20px;
+          font-weight: 800;
+          color: var(--secondary);
+        }
+
+
+
       }
     }
 
     .head {
       width: 100%;
       margin-bottom: 16px;
+
     }
 
     .countries {
@@ -40,25 +57,33 @@
       padding: 0 0;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      justify-content: flex-start;
+      align-items: flex-star;
       flex-wrap: wrap;
       flex-direction: row;
       width: 100%;
       height: 60vh;
       overflow-y: auto;
       overflow-x: hidden;
-      border-radius: 8px;
-      background-color: var(--primary-dark);
-      scroll-behavior: smooth;
 
 
       li:nth-child(odd) {
         background-color: var(--secondary);
+        border: 2px solid var(--primary);
+
+        &:hover {
+          border: 2px solid var(--primary);
+        }
       }
 
       li:nth-child(even) {
         background-color: var(--primary);
+        border: 2px solid var(--secondary);
+
+        &:hover {
+          border: 2px solid var(--secondary);
+        }
+
       }
 
       li {
@@ -71,7 +96,20 @@
         }
       }
 
-
+      .noResults {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+        padding: 16px;
+        color: var(--secondary);
+        border: 2px solid var(--secondary);
+        font-size: 16px;
+        font-weight: 600;
+      }
     }
 
     .loading {
@@ -80,9 +118,23 @@
       justify-content: center;
       width: 100%;
       height: 100%;
-      background-color: var(--tertiary) !important;
       border-radius: 8px;
       padding: 16px;
+    }
+
+    .counter {
+      width: 100%;
+      display: flex;
+      align-items: flex-start;
+      padding: 8px;
+      border-radius: 8px;
+      color: var(--secondary);
+      font-size: 14px;
+      font-weight: 600;
+
+      strong {
+        color: var(--secondary-dark);
+      }
     }
   }
 }
@@ -92,11 +144,21 @@
     margin: 0 24px;
 
     .content {
+      .titlePage {
+        margin-top: 24px;
+      }
+
       .countries {
         padding: 0;
         margin: 0;
-        gap: 0;
+        gap: 8px;
+
       }
+
+      .counter {
+        justify-content: center;
+      }
+
     }
   }
 }

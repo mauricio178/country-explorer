@@ -1,13 +1,5 @@
-export type CountryProps = {
-  name: string;
-  flags: {
-    png: string;
-    svg: string;
-  };
-  favorite: boolean;
-};
-
 export type CountryRequestProps = {
+  id: string;
   flags: {
     png: string;
     svg: string;
@@ -23,6 +15,7 @@ export type CountryRequestProps = {
       };
     };
   };
+  favorite: boolean;
 };
 
 export type ActionProps =
