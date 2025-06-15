@@ -18,7 +18,11 @@ export type CountryRequestProps = {
   favorite: boolean;
 };
 
-export type ActionProps =
-  | { type: "increment" }
-  | { type: "decrement" }
-  | { type: "reset" };
+export type FilterState = {
+  search: string;
+  sortBy: "name" | "";
+};
+
+export type Action =
+  | { type: "SET_SEARCH"; payload: string }
+  | { type: "SET_SORT"; payload: "name" | "" };

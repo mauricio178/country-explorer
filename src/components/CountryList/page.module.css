@@ -1,36 +1,118 @@
 .container {
-    background-color: var(--tertiary);
-    width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
-    font-family: var(--font-nunito), var(--font-nunito-sans), Arial, Helvetica, sans-serif;
-    font-weight: 600;
+    width: 100%;
+    height: 70vh;
 
-    input {
+    .countries,
+    .countriesNoResults {
+        list-style: none;
+        margin: 0 0;
+        padding: 0 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-star;
+        flex-wrap: wrap;
+        flex-direction: row;
         width: 100%;
-        border: none;
-        font-weight: 600;
-        padding: 8px 16px;
-        background-color: transparent;
-        font-size: 16px;
-        color: var(--gray-500);
+        overflow-y: auto;
+        overflow-x: hidden;
+        border-radius: 8px;
+        height: 100%;
 
-        &::placeholder {
-            font-family: var(--font-nunito), var(--font-nunito-sans), Arial, Helvetica, sans-serif;
-            color: var(--gray-400);
+
+        li:nth-child(odd) {
+            background-color: var(--secondary);
+            border: 2px solid var(--primary);
+
+            &:hover {
+                border: 2px solid var(--primary);
+            }
         }
 
+        li:nth-child(even) {
+            background-color: var(--primary);
+            border: 2px solid var(--secondary);
+
+            &:hover {
+                border: 2px solid var(--secondary);
+            }
+
+        }
+
+        li {
+            position: relative;
+
+            .favorite {
+                position: absolute;
+                top: 0;
+                right: 0;
+            }
+        }
+
+        .noResults {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            padding: 16px;
+            color: var(--secondary);
+            font-size: 16px;
+            font-weight: 600;
+            height: 100%;
+        }
+
+        .loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+        }
     }
 
-    svg {
-        font-size: 42px;
+
+    .counter {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
         padding: 8px;
+        border-radius: 8px;
+        color: var(--secondary);
+        font-size: 14px;
+        font-weight: 600;
+
+        strong {
+            color: var(--secondary-dark);
+        }
+    }
+}
+
+
+@media (max-width: 850px) {
+    .countries {
+        padding: 0;
+        margin: 0;
+        gap: 8px;
+
     }
 
-    :focus {
-        outline: none;
+    .counter {
+        justify-content: center;
     }
 
+    .noResults {
+        p {
+            text-align: center;
+            font-size: 14px;
+        }
+    }
 }
