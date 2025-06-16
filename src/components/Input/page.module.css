@@ -40,6 +40,10 @@
     .container {
         input {
             font-size: 12px;
+
+            &:focus {
+                outline: none;
+            }
         }
     }
 }

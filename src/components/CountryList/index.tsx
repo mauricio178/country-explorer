@@ -51,9 +51,7 @@ export default function CountryList(props: CountryListProps) {
                     return (
                       <CountryCard
                         key={country.id}
-                        name={country.name.common}
-                        flag={country.flags.png}
-                        favorite={country.favorite}
+                        country={country}
                         handleFavorite={() => handleFavorite(country)}
                       />
                     );

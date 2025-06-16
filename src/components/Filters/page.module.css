@@ -62,7 +62,6 @@
     gap: 8px;
     padding: 8px 16px;
     border-radius: 8px;
-    border: 1.5px solid var(--secondary-dark);
 
     p {
       transition: 0.8s;
@@ -82,9 +81,8 @@
       cursor: pointer;
       background-color: var(--secondary);
       border-radius: 8px;
-      padding: 8px 16px;
+      padding: 8px 12px;
       gap: 16px;
-      border: 1.5px solid var(--secondary);
 
       p {
         transition: 0.8s;
@@ -102,8 +100,13 @@
   .favoritesActive {
     transition: 0.8s;
     background-color: var(--secondary);
-    border: 1.5px solid var(--secondary-dark);
     border-radius: 8px;
+
+    p {
+      transition: 0.8s;
+      color: var(--primary-dark);
+      font-weight: 800;
+    }
   }
 }
 

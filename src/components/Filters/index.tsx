@@ -41,6 +41,7 @@ export default function Filters(props: FilterProps) {
         }`}
         onClick={() => handleOrder("favorites")}
       >
+        <p>ver favoritos</p>
         {activeFilter === "favorites" ? <MdFavorite /> : <MdFavoriteBorder />}
       </div>
     </div>
