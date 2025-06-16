@@ -1,9 +1,7 @@
 import { CountryRequestProps } from "../../types/types";
-import styles from "./page.module.css";
 import Animation, { AnimationType } from "../Animations";
 import CountryCard from "../CountryCard";
-import { useFilters } from "@/hooks/useFilters";
-import { FILTERS_STORAGE_KEY } from "@/constants/varibles";
+import styles from "./page.module.css";
 
 interface CountryListProps {
   countries: CountryRequestProps[];
@@ -17,12 +15,7 @@ export default function CountryList(props: CountryListProps) {
   const { countries, filteredCountries, search, isLoading, handleFavorite } =
     props;
 
-  const filterStorage = localStorage.getItem(FILTERS_STORAGE_KEY);
-  const filterStorageParsed = JSON.parse(filterStorage || "{}");
-
-  console.log({ filterStorageParsed });
-  const noResults =
-    filteredCountries.length === 0 && search !== "" && !isLoading;
+  const noResults = filteredCountries.length === 0 && search !== "";
 
   return (
     <div className={styles.container}>
@@ -42,7 +35,11 @@ export default function CountryList(props: CountryListProps) {
           <>
             {isLoading ? (
               <div className={styles.loading}>
-                <Animation type={AnimationType.LOAD_SEARCH} />
+                <p>Buscando...</p>
+                <Animation
+                  type={AnimationType.LOAD_SEARCH}
+                  size={{ width: "150px", height: "150px" }}
+                />
               </div>
             ) : (
               <>
@@ -71,7 +68,7 @@ export default function CountryList(props: CountryListProps) {
         <p>
           Mostrando{" "}
           <strong>
-            {filteredCountries.length === 0 && filterStorageParsed.search === ""
+            {filteredCountries.length === 0 && search === ""
               ? countries.length
               : filteredCountries.length}{" "}
           </strong>

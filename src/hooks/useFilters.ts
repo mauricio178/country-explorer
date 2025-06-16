@@ -1,4 +1,5 @@
-import { Action, FilterState } from "@/types/types";
+import { FILTERS_STORAGE_KEY } from "@/constants/varibles";
+import { Action, ActionTypes, FilterState } from "@/types/types";
 import { useReducer, useEffect } from "react";
 
 export const filterReducer = (
@@ -6,10 +7,12 @@ export const filterReducer = (
   action: Action
 ): FilterState => {
   switch (action.type) {
-    case "SET_SEARCH":
+    case ActionTypes.SET_ORDER:
+      return { ...state, order: action.payload };
+    case ActionTypes.SET_SEARCH:
       return { ...state, search: action.payload };
-    case "SET_SORT":
-      return { ...state, sortBy: action.payload };
+    case ActionTypes.SET_FAVORITES:
+      return { ...state, favorites: action.payload };
     default:
       return state;
   }
@@ -17,16 +20,15 @@ export const filterReducer = (
 
 export function useFilters() {
   const defaultFilters: FilterState = {
+    order: "asc",
     search: "",
-    sortBy: "",
+    favorites: false,
   };
-
-  const STORAGE_KEY = "filtros-app";
 
   const getInitialState = (): FilterState => {
     if (typeof window === "undefined") return defaultFilters;
 
-    const saved = localStorage.getItem(STORAGE_KEY);
+    const saved = localStorage.getItem(FILTERS_STORAGE_KEY);
     return saved ? JSON.parse(saved) : defaultFilters;
   };
 
@@ -37,7 +39,7 @@ export function useFilters() {
   );
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    localStorage.setItem(FILTERS_STORAGE_KEY, JSON.stringify(state));
   }, [state]);
 
   return { state, dispatch };

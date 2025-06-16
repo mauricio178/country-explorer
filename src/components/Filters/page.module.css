@@ -1,26 +1,121 @@
-.order {
+.container {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 8px;
-
+  justify-content: space-between;
   border-radius: 8px;
-  border: 2px solid var(--secondary);
+  width: 100%;
+  color: var(--secondary);
+  height: 15vh;
 
-
-  h2 {
-    font-size: 20px;
-    font-weight: 800;
-    color: var(--secondary);
-  }
-
-  div {
+  .order {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8px;
+    gap: 8px;
+
+    >div {
+      transition: 0.8s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 0;
+      gap: 16px;
+      font-size: 24px;
+
+      svg {
+        transition: 0.8s;
+        font-size: 24px;
+        color: var(--secondary-dark);
+      }
+
+      &:hover {
+        transition: 1s;
+        cursor: pointer;
+        gap: 24px;
+      }
+
+      .arrowLeft {
+        transition: 1s;
+        transform: rotate(180deg);
+      }
+
+      .arrowRight {
+        transition: 1s;
+        transform: rotate(0deg);
+      }
+
+      .active {
+        transition: 1s;
+        color: var(--primary);
+        font-weight: 800;
+        font-size: 26px;
+      }
+    }
+  }
+
+  .favorites,
+  .favoritesActive {
+    transition: 0.8s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 16px;
     border-radius: 8px;
-    color: var(--secondary);
+    border: 1.5px solid var(--secondary-dark);
+
+    p {
+      transition: 0.8s;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--secondary);
+    }
+
+    svg {
+      transition: 0.8s;
+      font-size: 24px;
+      color: var(--quaternary);
+    }
+
+    &:hover {
+      transition: 0.8s;
+      cursor: pointer;
+      background-color: var(--secondary);
+      border-radius: 8px;
+      padding: 8px 16px;
+      gap: 16px;
+      border: 1.5px solid var(--secondary);
+
+      p {
+        transition: 0.8s;
+        color: var(--primary-dark);
+        font-weight: 800;
+      }
+
+      svg {
+        transition: 0.8s;
+        font-size: 28px;
+      }
+    }
+  }
+
+  .favoritesActive {
+    transition: 0.8s;
+    background-color: var(--secondary);
+    border: 1.5px solid var(--secondary-dark);
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    margin-top: 16px;
+
+    .order {
+      >div {
+        gap: 8px;
+      }
+    }
 
   }
 }

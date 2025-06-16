@@ -1,16 +1,7 @@
+import { STORAGE_KEY_ALL_COUNTRIES } from "@/constants/varibles";
+
 export async function GET() {
-  const countries = [
-    { id: 1, name: "País A" },
-    { id: 2, name: "País B" },
-  ];
+  const allCountries = localStorage.getItem(STORAGE_KEY_ALL_COUNTRIES);
 
-  return Response.json(countries);
-}
-
-export async function POST(request: Request) {
-  const body = await request.json();
-  return Response.json({
-    mensagem: "País adicionado aos favoritos",
-    data: body,
-  });
+  return Response.json(allCountries);
 }

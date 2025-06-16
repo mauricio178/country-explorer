@@ -18,11 +18,24 @@ export type CountryRequestProps = {
   favorite: boolean;
 };
 
+export enum Order {
+  ASC = "asc",
+  DESC = "desc",
+}
+
+export enum ActionTypes {
+  SET_ORDER = "SET_ORDER",
+  SET_FAVORITES = "SET_FAVORITES",
+  SET_SEARCH = "SET_SEARCH",
+}
+
 export type FilterState = {
+  order: string;
   search: string;
-  sortBy: "name" | "";
+  favorites: boolean;
 };
 
 export type Action =
-  | { type: "SET_SEARCH"; payload: string }
-  | { type: "SET_SORT"; payload: "name" | "" };
+  | { type: ActionTypes.SET_ORDER; payload: Order }
+  | { type: ActionTypes.SET_FAVORITES; payload: boolean }
+  | { type: ActionTypes.SET_SEARCH; payload: string };

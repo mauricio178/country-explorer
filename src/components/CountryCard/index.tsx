@@ -1,5 +1,4 @@
-import { MdOutlineFavorite } from "react-icons/md";
-import { MdFavoriteBorder } from "react-icons/md";
+import { MdFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
 
 import styles from "./page.module.css";
 
@@ -14,11 +13,16 @@ export default function CountryCard(props: CountryCardProps) {
   const { name, flag, favorite, handleFavorite } = props;
 
   return (
-    <li className={styles.container}>
+    <li className={`${styles.container} ${favorite ? styles.favorite : ""}`}>
       <img src={flag} alt={name} />
       <h5>{name}</h5>
 
-      <div onClick={handleFavorite} className={styles.favorite}>
+      <div
+        onClick={handleFavorite}
+        className={
+          favorite ? styles.favoriteShow : styles.favoriteShowOnlyOnHover
+        }
+      >
         {favorite ? <MdOutlineFavorite /> : <MdFavoriteBorder />}
       </div>
     </li>
