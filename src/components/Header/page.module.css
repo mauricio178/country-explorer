@@ -30,7 +30,7 @@
 
 @media (max-width: 850px) {
   .container {
-    height: 60px;
+    height: 8vh;
     justify-content: center;
 
     .logo {

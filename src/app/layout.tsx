@@ -38,6 +38,7 @@ export default function RootLayout({
           newestOnTop={true}
           closeOnClick={true}
           rtl={false}
+          limit={1}
           pauseOnFocusLoss={true}
           draggable
           pauseOnHover

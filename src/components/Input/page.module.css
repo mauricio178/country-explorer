@@ -34,3 +34,12 @@
     }
 
 }
+
+@media (max-width: 850px) {
+
+    .container {
+        input {
+            font-size: 12px;
+        }
+    }
+}

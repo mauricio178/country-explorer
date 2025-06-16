@@ -149,7 +149,9 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <Header />
+      <div className={styles.header}>
+        <Header />
+      </div>
 
       <div className={styles.content}>
         <Filters
