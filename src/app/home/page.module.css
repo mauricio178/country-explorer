@@ -15,7 +15,7 @@
     width: 100%;
     gap: 16px;
     height: 75vh;
-    margin-top: 5vh;
+    margin-top: 6vh;
   }
 
 }
@@ -25,7 +25,9 @@
     margin: 0 24px;
 
     .content {
-      margin-top: 2vh;
+      height: 70vh;
+      margin-top: 15vh;
+      margin-bottom: 12vh;
     }
   }
 }
