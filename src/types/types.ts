@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export type CountryRequestProps = {
   id: string;
   flags: {
@@ -8,12 +10,7 @@ export type CountryRequestProps = {
   name: {
     common: string;
     official: string;
-    nativeName: {
-      fra: {
-        official: string;
-        common: string;
-      };
-    };
+    nativeName: any | undefined;
   };
   favorite: boolean;
 };

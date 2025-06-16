@@ -3,22 +3,39 @@ import { FaArrowRight } from "react-icons/fa6";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import styles from "./page.module.css";
 import { Order } from "@/types/types";
+import { useFilters } from "@/hooks/useFilters";
+import { useEffect } from "react";
+
+export enum FiltersTypes {
+  ORDER = "order",
+  FAVORITES = "favorites",
+}
 
 export interface FilterProps {
   order: string;
-  handleOrder: (type: "order" | "favorites", order?: Order) => void;
-  activeFilter: "order" | "favorites";
+  favorites: string[];
+  handleOrder: (type: FiltersTypes, order?: Order) => void;
+  activeFilter: FiltersTypes;
 }
 
 export default function Filters(props: FilterProps) {
-  const { order = Order.ASC, handleOrder, activeFilter } = props;
+  const { order = Order.ASC, handleOrder, activeFilter, favorites } = props;
+
+  const { state } = useFilters();
+
+  useEffect(() => {
+    console.log(state);
+  }, [state]);
 
   return (
     <div className={styles.container}>
       <div className={styles.order}>
         <div
           onClick={() =>
-            handleOrder("order", order === Order.ASC ? Order.DESC : Order.ASC)
+            handleOrder(
+              FiltersTypes.ORDER,
+              order === Order.ASC ? Order.DESC : Order.ASC
+            )
           }
         >
           <strong className={order === Order.DESC ? styles.active : ""}>
@@ -37,12 +54,16 @@ export default function Filters(props: FilterProps) {
 
       <div
         className={`${styles.favorites} ${
-          activeFilter === "favorites" ? styles.favoritesActive : ""
+          activeFilter === FiltersTypes.FAVORITES ? styles.favoritesActive : ""
         }`}
-        onClick={() => handleOrder("favorites")}
+        onClick={() => handleOrder(FiltersTypes.FAVORITES)}
       >
-        <p>ver favoritos</p>
-        {activeFilter === "favorites" ? <MdFavorite /> : <MdFavoriteBorder />}
+        <p>{favorites.length}</p>
+        {activeFilter === FiltersTypes.FAVORITES ? (
+          <MdFavorite />
+        ) : (
+          <MdFavoriteBorder />
+        )}
       </div>
     </div>
   );

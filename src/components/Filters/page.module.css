@@ -5,7 +5,8 @@
   border-radius: 8px;
   width: 100%;
   color: var(--secondary);
-  height: 15vh;
+  height: 12vh;
+  margin-bottom: 8px;
 
   .order {
     display: flex;
@@ -65,8 +66,8 @@
 
     p {
       transition: 0.8s;
-      font-size: 16px;
-      font-weight: 500;
+      font-size: 18px;
+      font-weight: 800;
       color: var(--secondary);
     }
 
@@ -81,8 +82,6 @@
       cursor: pointer;
       background-color: var(--secondary);
       border-radius: 8px;
-      padding: 8px 12px;
-      gap: 16px;
 
       p {
         transition: 0.8s;

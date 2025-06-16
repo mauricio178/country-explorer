@@ -23,7 +23,12 @@ export default function CountryCard(props: CountryCardProps) {
 
       <div className={styles.countryInfo}>
         <h5>{country.name.common}</h5>
-        <p>{country.name.official}</p>
+
+        <p>
+          {/* @ts-expect-error: Object.values(country.name.nativeName)[0] is not a function */}
+          {Object.values(country.name.nativeName)[0]?.official ||
+            country.name.official}
+        </p>
       </div>
 
       <div

@@ -16,7 +16,7 @@ import { ActionTypes, CountryRequestProps, Order } from "../../types/types";
 import styles from "./page.module.css";
 import Filters, { FiltersTypes } from "@/components/Filters";
 
-export default function Home() {
+export default function FavoritesPages() {
   const [isLoading, setIsLoading] = useState(false);
   const [countries, setCountries] = useState<CountryRequestProps[]>([]);
   const [filteredCountries, setFilteredCountries] = useState<string[]>([]);
@@ -80,18 +80,12 @@ export default function Home() {
   };
 
   function getCountriesBySearch() {
-    setIsLoading(true);
-
-    const countriesStorage = localStorage.getItem(STORAGE_KEY_ALL_COUNTRIES);
-
     if (state.search === "") {
       setFilteredCountries([]);
-      setCountries(JSON.parse(countriesStorage || "[]"));
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 1000);
       return;
     }
+
+    setIsLoading(true);
 
     const filteredIds: string[] = [];
 
@@ -102,15 +96,17 @@ export default function Home() {
         .toLowerCase();
     }
 
-    countries?.forEach((country) => {
-      if (
-        normalizeString(country.name.common).includes(
-          normalizeString(state.search)
-        )
-      ) {
-        filteredIds.push(country.id);
-      }
-    });
+    if (state.search) {
+      countries?.forEach((country) => {
+        if (
+          normalizeString(country.name.common).includes(
+            normalizeString(state.search)
+          )
+        ) {
+          filteredIds.push(country.id);
+        }
+      });
+    }
 
     setTimeout(() => {
       setFilteredCountries(filteredIds);
@@ -143,9 +139,8 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (isLoading) return;
     getCountriesBySearch();
-  }, [state.search]);
+  }, [state]);
 
   return (
     <div className={styles.container}>

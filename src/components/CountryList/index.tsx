@@ -72,14 +72,6 @@ export default function CountryList(props: CountryListProps) {
           </strong>
           de <strong> {countries.length}</strong> países
         </p>
-        <p className={styles.favoritesCounter}>
-          Favorito
-          {countries.filter((country) => country.favorite).length > 1 &&
-            "s"}{" "}
-          <strong>
-            {countries.filter((country) => country.favorite).length}
-          </strong>
-        </p>
       </div>
     </div>
   );
