@@ -7,7 +7,7 @@
     justify-content: center;
     height: 80px;
     border-radius: 8px;
-    padding: 0px 24px 0px 12px;
+    padding: 0px 64px 0px 12px;
     width: fit-content;
     height: 70px;
     gap: 8px;
@@ -16,20 +16,12 @@
     background-color: var(--primary);
     opacity: 0.96;
 
-    .flag {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    img {
         width: 42px;
-
-        img {
-            width: 100%;
-            background-color: var(--gray-100);
-            padding: 1px;
-        }
+        background-color: var(--gray-100);
+        padding: 2px;
+        border-radius: 4px;
     }
-
-
 
     .countryInfo {
         display: flex;
@@ -48,10 +40,6 @@
         }
     }
 
-
-
-
-
     .favoriteShow,
     .favoriteShowOnlyOnHover {
         display: flex;
@@ -60,6 +48,8 @@
         position: absolute;
         top: 8px;
         right: 8px;
+        gap: 8px;
+
 
         svg {
             transition: 0.5s;
@@ -72,14 +62,24 @@
             &:hover {
                 transition: 0.5s;
                 font-weight: 800;
-                font-size: 24px;
+                font-size: 18px;
             }
+        }
+
+        .link {
+            opacity: 0;
+            color: var(--primary-dark) !important;
         }
     }
 
     .favoriteShowOnlyOnHover {
         transition: 0.5s;
         opacity: 0;
+
+        .link {
+            opacity: 1;
+            color: var(--secondary) !important;
+        }
     }
 
 
@@ -98,11 +98,13 @@
             }
         }
 
-
-
         .favoriteShowOnlyOnHover {
             transition: 0.5s;
             opacity: 1;
+
+            .link {
+                opacity: 1;
+            }
         }
     }
 }
@@ -115,9 +117,18 @@
         transition: 0.5s;
         background-color: var(--quaternary) !important;
     }
+
+    &:hover {
+
+        .favoriteShow,
+        .favoriteShowOnlyOnHover {
+            .link {
+                opacity: 1;
+                color: var(--secondary) !important;
+            }
+        }
+    }
 }
-
-
 
 @media (max-width: 850px) {
 
@@ -126,7 +137,7 @@
         width: 100%;
         margin: 0;
         padding: 8px 16px;
-        height: 48px;
+        height: 52px;
         justify-content: flex-start;
 
         .countryInfo {
@@ -138,7 +149,7 @@
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                margin-right: 24px;
+                margin-right: 52px;
             }
 
             p {
@@ -146,17 +157,12 @@
             }
         }
 
-        .flag {
-            width: 32px;
+
+
+        img {
+            width: 42px;
             margin-right: 8px;
-
-            img {
-                width: 32px;
-                margin-right: 8px;
-            }
         }
-
-
 
         .favorite {
             top: 8px;
@@ -170,9 +176,21 @@
 
         .favoriteShow,
         .favoriteShowOnlyOnHover {
+            height: 36px;
+            transition: 0.5s;
+            opacity: 0;
+
             svg {
                 width: 24px;
                 height: 24px;
+            }
+        }
+
+        &:hover {
+
+            .favoriteShow,
+            .favoriteShowOnlyOnHover {
+                opacity: 1;
             }
         }
     }

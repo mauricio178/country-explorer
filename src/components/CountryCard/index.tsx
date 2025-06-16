@@ -1,7 +1,15 @@
-import { MdFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
+"use client";
 
-import styles from "./page.module.css";
+import {
+  MdFavoriteBorder,
+  MdOutlineFavorite,
+  MdOutlineOpenInNew,
+} from "react-icons/md";
+
 import { CountryRequestProps } from "@/types/types";
+import styles from "./page.module.css";
+import { useRouter } from "next/navigation";
+import { systemPaths } from "@/constants/paths";
 
 interface CountryCardProps {
   country: CountryRequestProps;
@@ -10,6 +18,12 @@ interface CountryCardProps {
 
 export default function CountryCard(props: CountryCardProps) {
   const { country, handleFavorite } = props;
+
+  const router = useRouter();
+
+  function redirect(id: string) {
+    router.push(id);
+  }
 
   return (
     <li
@@ -32,14 +46,21 @@ export default function CountryCard(props: CountryCardProps) {
       </div>
 
       <div
-        onClick={handleFavorite}
         className={
           country.favorite
             ? styles.favoriteShow
             : styles.favoriteShowOnlyOnHover
         }
       >
-        {country.favorite ? <MdOutlineFavorite /> : <MdFavoriteBorder />}
+        <MdOutlineOpenInNew
+          onClick={() => redirect(systemPaths.countryId(country.id))}
+          className={styles.link}
+        />
+        {country.favorite ? (
+          <MdOutlineFavorite onClick={handleFavorite} />
+        ) : (
+          <MdFavoriteBorder onClick={handleFavorite} />
+        )}
       </div>
     </li>
   );

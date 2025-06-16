@@ -1,10 +1,8 @@
 import { FaArrowRight } from "react-icons/fa6";
 
+import { Order } from "@/types/types";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import styles from "./page.module.css";
-import { Order } from "@/types/types";
-import { useFilters } from "@/hooks/useFilters";
-import { useEffect } from "react";
 
 export enum FiltersTypes {
   ORDER = "order",
@@ -20,12 +18,6 @@ export interface FilterProps {
 
 export default function Filters(props: FilterProps) {
   const { order = Order.ASC, handleOrder, activeFilter, favorites } = props;
-
-  const { state } = useFilters();
-
-  useEffect(() => {
-    console.log(state);
-  }, [state]);
 
   return (
     <div className={styles.container}>
