@@ -7,7 +7,7 @@
     justify-content: center;
     height: 80px;
     border-radius: 8px;
-    padding: 0px 64px 0px 12px;
+    padding: 0px 56px 0px 12px;
     width: fit-content;
     height: 70px;
     gap: 8px;
@@ -27,14 +27,22 @@
         flex-direction: column;
         justify-content: flex-start;
         gap: 4px;
+        border-left: 1px solid var(--gray-400);
+        padding-left: 8px;
 
-        h5 {
+        h5,
+        p {
             font-size: 16px;
             position: relative;
             color: var(--gray-400);
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 4px;
         }
 
         p {
+
             font-size: 14px;
             color: var(--gray-400);
         }
@@ -105,6 +113,11 @@
                 opacity: 1;
             }
         }
+
+        .countryInfo {
+            transition: 0.5s;
+            border-left: 1px solid var(--secondary);
+        }
     }
 }
 
@@ -129,8 +142,8 @@
     .favorite {
         width: 100%;
         margin: 0;
-        padding: 8px 16px;
-        height: 52px;
+        padding: 4px 8px;
+        /* height: 80px; */
         justify-content: flex-start;
 
         .countryInfo {
@@ -143,14 +156,17 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
                 margin-right: 52px;
+
+                svg {
+                    font-size: 10px;
+                }
             }
 
             p {
                 font-size: 12px;
             }
+
         }
-
-
 
         img {
             width: 42px;
@@ -165,7 +181,6 @@
                 font-size: 24px;
             }
         }
-
 
         .favoriteShow,
         .favoriteShowOnlyOnHover {

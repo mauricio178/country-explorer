@@ -1,0 +1,23 @@
+.container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+
+  p {
+    font-size: 16px;
+    color: var(--secondary);
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .active {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--secondary-dark);
+  }
+}

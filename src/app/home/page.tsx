@@ -4,22 +4,25 @@ import {
   getCountriesEspecification,
 } from "@/actions/countries";
 import CountryList from "@/components/CountryList";
+import Filters, { FiltersTypes } from "@/components/Filters";
+import { systemPaths } from "@/constants/paths";
 import { LABELS, STORAGE_KEY_ALL_COUNTRIES } from "@/constants/varibles";
 import { useFilters } from "@/hooks/useFilters";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { MdSearch } from "react-icons/md";
 import { toast } from "react-toastify";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import Input from "../../components/Input";
 import { ActionTypes, CountryRequestProps, Order } from "../../types/types";
 import styles from "./page.module.css";
-import Filters, { FiltersTypes } from "@/components/Filters";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [countries, setCountries] = useState<CountryRequestProps[]>([]);
   const [filteredCountries, setFilteredCountries] = useState<string[]>([]);
+
+  const router = useRouter();
 
   const { state, dispatch } = useFilters();
 
@@ -80,6 +83,7 @@ export default function Home() {
   };
 
   function getCountriesBySearch() {
+    if (isLoading) return;
     setIsLoading(true);
 
     const countriesStorage = localStorage.getItem(STORAGE_KEY_ALL_COUNTRIES);
@@ -126,6 +130,7 @@ export default function Home() {
         dispatch({ type: ActionTypes.SET_ORDER, payload: order || Order.ASC });
         break;
       case FiltersTypes.FAVORITES:
+        router.push(systemPaths.favorites);
         dispatch({
           type: ActionTypes.SET_FAVORITES,
           payload: !state.favorites,
@@ -158,33 +163,31 @@ export default function Home() {
           order={state.order}
           favorites={countries.filter((c) => c.favorite).map((c) => c.id)}
           handleOrder={handleOrder}
-          activeFilter={
-            state.favorites ? FiltersTypes.FAVORITES : FiltersTypes.ORDER
-          }
-        />
-
-        <Input
           placeholder={LABELS.SEARCH_BY_COUNTRY_NAME}
-          type="text"
           value={state.search}
           onChange={(e) =>
-            dispatch({ type: ActionTypes.SET_SEARCH, payload: e })
+            dispatch({
+              type: ActionTypes.SET_SEARCH,
+              payload: e.target.value as string,
+            })
           }
           icon={<MdSearch />}
         />
 
-        <CountryList
-          countries={countries.sort((a, b) => {
-            if (state.order === Order.ASC) {
-              return a.name.common.localeCompare(b.name.common);
-            }
-            return b.name.common.localeCompare(a.name.common);
-          })}
-          filteredCountries={filteredCountries}
-          search={state.search}
-          isLoading={isLoading}
-          handleFavorite={handleFavorite}
-        />
+        <div className={styles.list}>
+          <CountryList
+            countries={countries.sort((a, b) => {
+              if (state.order === Order.ASC) {
+                return a.name.common.localeCompare(b.name.common);
+              }
+              return b.name.common.localeCompare(a.name.common);
+            })}
+            filteredCountries={filteredCountries}
+            search={state.search}
+            isLoading={isLoading}
+            handleFavorite={handleFavorite}
+          />
+        </div>
       </div>
 
       <div className={styles.footer}>

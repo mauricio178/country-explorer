@@ -9,12 +9,25 @@ export enum CountrySpecification {
   SUBREGION = "/subregion",
 }
 
+export const countryFields = [
+  "name",
+  "flags",
+  "capital",
+  "region",
+  "subregion",
+  "independent",
+  "cioc",
+  "currencies",
+  "languages",
+];
+
 export const getCountriesEspecification = async (
   specification: CountrySpecification
-  // region?: string
 ) => {
   const customParams =
-    specification === CountrySpecification.ALL ? { fields: "name,flags" } : {};
+    specification === CountrySpecification.ALL
+      ? { fields: countryFields.join(",") }
+      : {};
 
   return await api
     .get<CountryRequestProps[]>(specification, {

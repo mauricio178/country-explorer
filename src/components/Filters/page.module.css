@@ -1,121 +1,117 @@
 .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 8px;
   width: 100%;
-  color: var(--secondary);
-  height: 12vh;
-  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-top: 12vh;
+  gap: 8px;
 
-  .order {
+  .content {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 8px;
+    border-radius: 8px;
+    width: 100%;
+    color: var(--secondary);
+    gap: 16px;
 
-    >div {
+    .order {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+
+      >div {
+        transition: .8s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 0;
+        gap: 8px;
+        font-size: 24px;
+        font-weight: 100;
+
+        svg {
+          transition: .8s;
+          font-size: 24px;
+          color: var(--secondary-dark);
+        }
+
+        &:hover {
+          transition: 1s;
+          cursor: pointer;
+        }
+
+        .arrowLeft {
+          transition: 1s;
+          transform: rotate(180deg);
+        }
+
+        .arrowRight {
+          transition: 1s;
+          transform: rotate(0deg);
+        }
+
+        .active {
+          transition: .8s;
+          color: var(--primary);
+          font-weight: 800;
+        }
+      }
+    }
+
+    .favorites,
+    .favoritesActive {
       transition: 0.8s;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 8px 0;
-      gap: 16px;
-      font-size: 24px;
-
-      svg {
-        transition: 0.8s;
-        font-size: 24px;
-        color: var(--secondary-dark);
-      }
-
-      &:hover {
-        transition: 1s;
-        cursor: pointer;
-        gap: 24px;
-      }
-
-      .arrowLeft {
-        transition: 1s;
-        transform: rotate(180deg);
-      }
-
-      .arrowRight {
-        transition: 1s;
-        transform: rotate(0deg);
-      }
-
-      .active {
-        transition: 1s;
-        color: var(--primary);
-        font-weight: 800;
-        font-size: 26px;
-      }
-    }
-  }
-
-  .favorites,
-  .favoritesActive {
-    transition: 0.8s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 8px 16px;
-    border-radius: 8px;
-
-    p {
-      transition: 0.8s;
-      font-size: 18px;
-      font-weight: 800;
-      color: var(--secondary);
-    }
-
-    svg {
-      transition: 0.8s;
-      font-size: 24px;
-      color: var(--quaternary);
-    }
-
-    &:hover {
-      transition: 0.8s;
-      cursor: pointer;
-      background-color: var(--secondary);
+      gap: 8px;
       border-radius: 8px;
 
       p {
         transition: 0.8s;
-        color: var(--primary-dark);
+        font-size: 18px;
         font-weight: 800;
+        color: var(--secondary);
       }
 
       svg {
         transition: 0.8s;
-        font-size: 28px;
+        font-size: 24px;
+        color: var(--quaternary);
+      }
+
+      &:hover {
+        transition: 0.8s;
+        cursor: pointer;
+
+        p {
+          transition: 0.8s;
+          font-weight: 800;
+          font-size: 20px;
+        }
+
+        svg {
+          transition: 0.8s;
+          font-size: 28px;
+        }
       }
     }
   }
+}
 
-  .favoritesActive {
-    transition: 0.8s;
-    background-color: var(--secondary);
-    border-radius: 8px;
-
-    p {
-      transition: 0.8s;
-      color: var(--primary-dark);
-      font-weight: 800;
-    }
-  }
+.favoritesActive {
+  background-color: var(--primary);
 }
 
 @media (max-width: 768px) {
   .container {
     .order {
       >div {
-        gap: 8px;
+        gap: 2px;
       }
     }
-
   }
+
 }

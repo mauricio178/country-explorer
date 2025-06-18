@@ -1,15 +1,15 @@
 "use client";
 
+import { systemPaths } from "@/constants/paths";
+import { CountryRequestProps } from "@/types/types";
+import { useRouter } from "next/navigation";
 import {
   MdFavoriteBorder,
   MdOutlineFavorite,
   MdOutlineOpenInNew,
 } from "react-icons/md";
-
-import { CountryRequestProps } from "@/types/types";
+import "react-loading-skeleton/dist/skeleton.css";
 import styles from "./page.module.css";
-import { useRouter } from "next/navigation";
-import { systemPaths } from "@/constants/paths";
 
 interface CountryCardProps {
   country: CountryRequestProps;
