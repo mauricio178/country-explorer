@@ -173,7 +173,7 @@ export default function FavoritesPage() {
           <CountryList
             countries={countries
               .filter((country) => country.favorite)
-              .sort((a, b) => {
+              .sort((a: CountryRequestProps, b: CountryRequestProps) => {
                 if (state.order === Order.ASC) {
                   return a.name.common.localeCompare(b.name.common);
                 }

@@ -1,6 +1,8 @@
 // STORAGE KEYS
 
 export const STORAGE_KEY_ALL_COUNTRIES = "all_countries_storage_key";
+export const STORAGE_KEY_FAVORITES_COUNTRIES =
+  "favorites_countries_storage_key";
 export const FILTERS_STORAGE_KEY = "filters-app";
 
 // LABELS

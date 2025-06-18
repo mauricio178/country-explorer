@@ -31,7 +31,18 @@ export default function Home() {
 
   const onLoadScreen = async () => {
     setIsLoading(true);
+    const storageCountries = localStorage.getItem(STORAGE_KEY_ALL_COUNTRIES);
+    const parsedCountries = JSON.parse(storageCountries || "[]");
+
+    if (parsedCountries.length > 0) {
+      console.log({ parsedCountries });
+      setCountries(parsedCountries);
+      setIsLoading(false);
+      return;
+    }
+
     getContinents();
+
     const countriesResponse = await getCountriesEspecification(
       CountrySpecification.ALL
     );
@@ -39,7 +50,9 @@ export default function Home() {
     if (!countriesResponse) return;
 
     const formattedCountries = countriesResponse
-      .sort((a, b) => a.name.common.localeCompare(b.name.common))
+      .sort((a: CountryRequestProps, b: CountryRequestProps) =>
+        a.name.common.localeCompare(b.name.common)
+      )
       .map((country: CountryRequestProps) => {
         const ramdomID = crypto.randomUUID();
         return {
@@ -51,12 +64,10 @@ export default function Home() {
 
     setCountries(formattedCountries);
     toast.success(LABELS.COUNTRIES_LOADED_SUCCESSFULLY);
-
     localStorage.setItem(
       STORAGE_KEY_ALL_COUNTRIES,
       JSON.stringify(formattedCountries)
     );
-
     setIsLoading(false);
   };
 
@@ -143,7 +154,6 @@ export default function Home() {
 
   useEffect(() => {
     onLoadScreen();
-    getContinents();
   }, []);
 
   useEffect(() => {
