@@ -95,12 +95,6 @@ export default function CountryPage({ params }: PageProps) {
       return country;
     });
 
-    toast.success(
-      `${country?.name} ${
-        country?.favorite ? "removido" : "adicionado"
-      } dos favoritos`
-    );
-
     localStorage.setItem(
       STORAGE_KEY_ALL_COUNTRIES,
       JSON.stringify(newCountries)
@@ -128,18 +122,18 @@ export default function CountryPage({ params }: PageProps) {
         </div>
 
         <div
-          title={`${country?.favorite ? "Remover " : "Favoritar"}`}
+          title={`${country?.favorite ? "remover " : "favoritar"}`}
           className={styles.favoriteButton}
           onClick={handleFavorite}
         >
           {country?.favorite ? (
             <>
-              <p>desfavoritar</p>
+              <p>removido favorito</p>
               <FaHeart />
             </>
           ) : (
             <>
-              <p>favoritar</p>
+              <p>favorito</p>
               <FaRegHeart />
             </>
           )}
