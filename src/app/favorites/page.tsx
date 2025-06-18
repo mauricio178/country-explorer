@@ -104,7 +104,6 @@ export default function FavoritesPage() {
     const allContinents: string[] = [];
 
     parsedCountries.forEach((country: CountryRequestProps) => {
-      console.log({ country });
       if (!allContinents.includes(country.region)) {
         allContinents.push(country.region);
       }
@@ -118,7 +117,6 @@ export default function FavoritesPage() {
 
   useEffect(() => {
     setIsLoading(true);
-    console.log({ state });
     const handler = setTimeout(() => {
       setDebouncedQuery(state.search);
       dispatch({
@@ -189,7 +187,7 @@ export default function FavoritesPage() {
         ) : (
           <div className={styles.noFavorites}>
             <p>Nenhum país favoritado</p>
-            <LiaHeartBrokenSolid />
+            <LiaHeartBrokenSolid className={styles.float} />
           </div>
         )}
       </div>

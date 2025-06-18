@@ -21,7 +21,7 @@
 
       &:hover {
         transition: 0.3s;
-        height: 47px;
+        height: 46px;
         cursor: pointer;
       }
     }
@@ -38,6 +38,10 @@
 
       img {
         height: 35px;
+
+        &:hover {
+          height: 36px;
+        }
       }
     }
   }

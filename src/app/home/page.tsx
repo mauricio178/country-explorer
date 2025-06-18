@@ -77,7 +77,6 @@ export default function Home() {
     const allContinents: string[] = [];
 
     parsedCountries.forEach((country: CountryRequestProps) => {
-      console.log({ country });
       if (!allContinents.includes(country.region)) {
         allContinents.push(country.region);
       }

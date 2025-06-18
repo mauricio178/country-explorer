@@ -19,7 +19,7 @@
         flex-direction: row;
         width: 100%;
         overflow: auto;
-        border-radius: 8px;
+        border-radius: 4px;
         height: 70vh;
 
         li:nth-child(odd) {

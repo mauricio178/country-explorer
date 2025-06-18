@@ -19,6 +19,7 @@ import {
 } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import styles from "./page.module.css";
+import { toast } from "react-toastify";
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -94,6 +95,12 @@ export default function CountryPage({ params }: PageProps) {
       return country;
     });
 
+    toast.success(
+      country?.favorite
+        ? `${country?.name} removido dos favoritos`
+        : `${country?.name} adicionado aos favoritos`
+    );
+
     localStorage.setItem(
       STORAGE_KEY_ALL_COUNTRIES,
       JSON.stringify(newCountries)
@@ -121,13 +128,13 @@ export default function CountryPage({ params }: PageProps) {
         </div>
 
         <div
-          title={`${country?.favorite ? "remover " : "favoritar"}`}
+          title={`${country?.favorite ? "remover" : "favoritar"}`}
           className={styles.favoriteButton}
           onClick={handleFavorite}
         >
           {country?.favorite ? (
             <>
-              <p>removido favorito</p>
+              <p>remover favorito</p>
               <FaHeart />
             </>
           ) : (

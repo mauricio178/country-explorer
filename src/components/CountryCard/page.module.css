@@ -50,6 +50,9 @@
             align-items: center;
             justify-content: flex-start;
             gap: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         p {
@@ -66,8 +69,7 @@
         position: absolute;
         top: 8px;
         right: 8px;
-        gap: 8px;
-
+        gap: 2px;
 
         svg {
             transition: 0.5s;
@@ -164,6 +166,7 @@
 
         .countryInfo {
             overflow: hidden;
+            width: 80%;
 
             h5,
             p {
@@ -193,8 +196,10 @@
         .favoriteShowOnlyOnHover {
             height: 34px;
             transition: 0.5s;
+            border-radius: 2px;
 
             svg {
+                padding: 2px;
                 width: 24px;
                 height: 24px;
             }

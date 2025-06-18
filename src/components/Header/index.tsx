@@ -10,8 +10,11 @@ export default function Header() {
       <div
         className={styles.logo}
         onClick={() => router.push(systemPaths.home)}
+        title="Página inicial"
       >
-        <img src="/full-logo.png" alt="Country Explorer" />
+        <a href={systemPaths.home}>
+          <img src="/full-logo.png" alt="Country Explorer" />
+        </a>
       </div>
     </div>
   );
