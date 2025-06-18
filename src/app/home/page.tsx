@@ -31,7 +31,9 @@ export default function Home() {
   const { state, dispatch } = useFilters();
 
   useEffect(() => {
-    setActiveFilters(state.continents.map((c) => c));
+    if (state.continents.length > 0) {
+      setActiveFilters(state.continents.map((c) => c));
+    }
   }, [state.continents]);
 
   const onLoadScreen = async () => {

@@ -43,7 +43,9 @@ export default function FavoritesPage() {
   };
 
   useEffect(() => {
-    updateActiveFilters();
+    if (state.continents.length > 0) {
+      updateActiveFilters();
+    }
   }, [state]);
 
   const handleFavorite = (country: CountryRequestProps) => {
