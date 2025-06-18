@@ -33,6 +33,7 @@ export default function Home() {
     setIsLoading(true);
     const storageCountries = localStorage.getItem(STORAGE_KEY_ALL_COUNTRIES);
     const parsedCountries = JSON.parse(storageCountries || "[]");
+    getContinents();
 
     if (parsedCountries.length > 0) {
       console.log({ parsedCountries });
@@ -40,8 +41,6 @@ export default function Home() {
       setIsLoading(false);
       return;
     }
-
-    getContinents();
 
     const countriesResponse = await getCountriesEspecification(
       CountrySpecification.ALL
@@ -74,6 +73,11 @@ export default function Home() {
   const getContinents = () => {
     const allCountries = localStorage.getItem(STORAGE_KEY_ALL_COUNTRIES);
     const parsedCountries = JSON.parse(allCountries || "[]");
+
+    if (!parsedCountries) {
+      onLoadScreen();
+      return;
+    }
 
     const allContinents: string[] = [];
 
@@ -154,7 +158,7 @@ export default function Home() {
 
   useEffect(() => {
     onLoadScreen();
-  }, []);
+  }, [state]);
 
   useEffect(() => {
     setIsLoading(true);
