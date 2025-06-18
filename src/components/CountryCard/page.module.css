@@ -102,7 +102,6 @@
     &:hover {
         transition: 0.5s;
         background-color: var(--secondary) !important;
-        cursor: pointer;
         opacity: 1;
 
         .flag {
@@ -123,8 +122,10 @@
         .favoriteShowOnlyOnHover {
             transition: 0.5s;
             opacity: 1;
+            cursor: pointer;
 
             .link {
+                color: var(--gray-600) !important;
                 opacity: 1;
             }
         }
