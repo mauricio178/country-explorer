@@ -5,6 +5,7 @@ import { STORAGE_KEY_ALL_COUNTRIES } from "@/constants/varibles";
 import { CountryRequestProps } from "@/types/types";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { BsTranslate } from "react-icons/bs";
 import {
   FaArrowLeft,
   FaCoins,
@@ -18,8 +19,6 @@ import {
 } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import styles from "./page.module.css";
-import { BsTranslate } from "react-icons/bs";
-import { toast } from "react-toastify";
 
 type PageProps = {
   params: Promise<{ id: string }>;
