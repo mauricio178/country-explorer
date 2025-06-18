@@ -6,7 +6,7 @@
     flex-direction: row;
     justify-content: center;
     height: 80px;
-    border-radius: 8px;
+    border-radius: 2px;
     padding: 0px 56px 0px 12px;
     width: fit-content;
     height: 60px;
@@ -38,8 +38,7 @@
         justify-content: center;
         align-items: flex-start;
         gap: 4px;
-        border-left: 1.25px solid var(--secondary);
-
+        border-left: 1.5px solid var(--gray-400);
         padding-left: 8px;
 
         h5,
@@ -134,7 +133,7 @@
 
         .countryInfo {
             transition: 0.5s;
-            border-left: 1px solid var(--gray-600);
+            border-left: 1.5px solid var(--primary-dark);
         }
     }
 }
@@ -161,7 +160,6 @@
         width: 100%;
         margin: 0;
         padding: 4px 8px;
-        /* height: 80px; */
         justify-content: flex-start;
 
         .countryInfo {

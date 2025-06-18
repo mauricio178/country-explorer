@@ -69,14 +69,14 @@ a {
   transition: background 0.2s, border-color 0.2s;
 }
 
-.checkboxInput:checked {
-  background: #333;
-  border-color: #333;
+.checkboxInput::after {
+  background: var(--secondary-dark);
+  border-color: var(--secondary-dark);
 }
 
 .checkboxInput:checked::after {
   content: "✔";
-  color: white;
+  color: var(--primary);
   display: block;
   text-align: center;
   font-size: 14px;
