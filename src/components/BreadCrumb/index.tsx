@@ -1,11 +1,9 @@
 "use client";
 import { systemPaths } from "@/constants/paths";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import styles from "./page.module.css";
 
 export default function BreadCrumb() {
-  const router = useRouter();
-
   const pathname = usePathname();
 
   const paths = [
@@ -21,14 +19,12 @@ export default function BreadCrumb() {
 
   return (
     <div className={styles.container}>
-      {paths.map((item, index) => (
+      {paths.map((item) => (
         <p
           key={item.path}
           className={pathname === item.path ? styles.active : ""}
-          onClick={() => router.push(item.path)}
         >
-          {index > 0 && " / "}
-          {item.name}
+          {pathname === item.path && item.name}
         </p>
       ))}
     </div>

@@ -20,6 +20,8 @@ export default function FavoritesPage() {
 
   const [countries, setCountries] = useState<CountryRequestProps[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [continents, setContinents] = useState<string[]>([]);
+  const [debouncedQuery, setDebouncedQuery] = useState("");
 
   const [filteredCountries, setFilteredCountries] = useState<string[]>([]);
 
@@ -61,19 +63,15 @@ export default function FavoritesPage() {
     }, 1000);
   };
 
-  function getCountriesBySearch() {
+  function getCountriesBySearch(search: string) {
     if (isLoading) return;
-
-    setIsLoading(true);
 
     const countriesStorage = localStorage.getItem(STORAGE_KEY_ALL_COUNTRIES);
 
     if (state.search === "") {
       setFilteredCountries([]);
       setCountries(JSON.parse(countriesStorage || "[]"));
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 1000);
+      setIsLoading(false);
       return;
     }
 
@@ -88,9 +86,7 @@ export default function FavoritesPage() {
 
     countries?.forEach((country) => {
       if (
-        normalizeString(country.name.common).includes(
-          normalizeString(state.search)
-        )
+        normalizeString(country.name.common).includes(normalizeString(search))
       ) {
         filteredIds.push(country.id);
       }
@@ -98,13 +94,54 @@ export default function FavoritesPage() {
 
     setTimeout(() => {
       setFilteredCountries(filteredIds);
-      setIsLoading(false);
     }, 1000);
   }
 
+  const getContinents = () => {
+    const allCountries = localStorage.getItem(STORAGE_KEY_ALL_COUNTRIES);
+    const parsedCountries = JSON.parse(allCountries || "[]");
+
+    const allContinents: string[] = [];
+
+    parsedCountries.forEach((country: CountryRequestProps) => {
+      console.log({ country });
+      if (!allContinents.includes(country.region)) {
+        allContinents.push(country.region);
+      }
+    });
+    setContinents(allContinents);
+  };
+
   useEffect(() => {
-    getCountriesBySearch();
+    getCountriesBySearch("");
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
+    console.log({ state });
+    const handler = setTimeout(() => {
+      setDebouncedQuery(state.search);
+      dispatch({
+        type: ActionTypes.SET_SEARCH,
+        payload: state.search,
+      });
+      setIsLoading(false);
+    }, 1000);
+
+    return () => {
+      clearTimeout(handler);
+    };
   }, [state.search]);
+
+  useEffect(() => {
+    if (debouncedQuery) {
+      getCountriesBySearch(debouncedQuery);
+    }
+  }, [debouncedQuery]);
+
+  useEffect(() => {
+    getContinents();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -123,7 +160,15 @@ export default function FavoritesPage() {
               payload: e.target.value as string,
             })
           }
+          onClear={() => {
+            dispatch({
+              type: ActionTypes.SET_SEARCH,
+              payload: "",
+            });
+            getCountriesBySearch("");
+          }}
           icon={<MdSearch />}
+          continents={continents}
         />
 
         {countries.filter((country) => country.favorite).length > 0 ? (

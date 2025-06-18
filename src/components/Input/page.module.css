@@ -24,6 +24,12 @@
 
     }
 
+    .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     svg {
         font-size: 42px;
         padding: 8px;
@@ -32,6 +38,17 @@
 
     :focus {
         outline: none;
+    }
+
+    .close {
+        transition: 0.5s;
+        cursor: pointer;
+
+        &:hover {
+            transition: 0.8s;
+            rotate: 90deg;
+            color: var(--quaternary);
+        }
     }
 
 }

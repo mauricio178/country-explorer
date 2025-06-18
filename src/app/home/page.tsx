@@ -22,20 +22,25 @@ export default function Home() {
   const [countries, setCountries] = useState<CountryRequestProps[]>([]);
   const [filteredCountries, setFilteredCountries] = useState<string[]>([]);
 
+  const [debouncedQuery, setDebouncedQuery] = useState("");
+  const [continents, setContinents] = useState<string[]>([]);
+
   const router = useRouter();
 
   const { state, dispatch } = useFilters();
 
   const onLoadScreen = async () => {
     setIsLoading(true);
-
     const allCountries = localStorage.getItem(STORAGE_KEY_ALL_COUNTRIES);
+    const parsedCountries = JSON.parse(allCountries || "[]");
 
-    if (allCountries) {
-      setCountries(JSON.parse(allCountries));
+    if (parsedCountries) {
+      setCountries(parsedCountries);
       setIsLoading(false);
       return;
     }
+
+    getContinents();
 
     const countriesResponse = await getCountriesEspecification(
       CountrySpecification.ALL
@@ -65,6 +70,21 @@ export default function Home() {
     setIsLoading(false);
   };
 
+  const getContinents = () => {
+    const allCountries = localStorage.getItem(STORAGE_KEY_ALL_COUNTRIES);
+    const parsedCountries = JSON.parse(allCountries || "[]");
+
+    const allContinents: string[] = [];
+
+    parsedCountries.forEach((country: CountryRequestProps) => {
+      console.log({ country });
+      if (!allContinents.includes(country.region)) {
+        allContinents.push(country.region);
+      }
+    });
+    setContinents(allContinents);
+  };
+
   const handleFavorite = (country: CountryRequestProps) => {
     const newCountries = countries.map((c) =>
       c.id === country.id ? { ...c, favorite: !c.favorite } : c
@@ -82,18 +102,12 @@ export default function Home() {
     setCountries(newCountries);
   };
 
-  function getCountriesBySearch() {
-    if (isLoading) return;
-    setIsLoading(true);
-
+  function getCountriesBySearch(search: string) {
     const countriesStorage = localStorage.getItem(STORAGE_KEY_ALL_COUNTRIES);
 
-    if (state.search === "") {
+    if (search === "") {
       setFilteredCountries([]);
       setCountries(JSON.parse(countriesStorage || "[]"));
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 1000);
       return;
     }
 
@@ -108,18 +122,13 @@ export default function Home() {
 
     countries?.forEach((country) => {
       if (
-        normalizeString(country.name.common).includes(
-          normalizeString(state.search)
-        )
+        normalizeString(country.name.common).includes(normalizeString(search))
       ) {
         filteredIds.push(country.id);
       }
     });
 
-    setTimeout(() => {
-      setFilteredCountries(filteredIds);
-      setIsLoading(false);
-    }, 1000);
+    setFilteredCountries(filteredIds);
   }
 
   const handleOrder = (type: FiltersTypes, order?: Order) => {
@@ -145,12 +154,26 @@ export default function Home() {
 
   useEffect(() => {
     onLoadScreen();
+    getContinents();
   }, []);
 
   useEffect(() => {
-    if (isLoading) return;
-    getCountriesBySearch();
+    setIsLoading(true);
+    const handler = setTimeout(() => {
+      setDebouncedQuery(state.search);
+      setIsLoading(false);
+    }, 1000);
+
+    return () => {
+      clearTimeout(handler);
+    };
   }, [state.search]);
+
+  useEffect(() => {
+    if (debouncedQuery) {
+      getCountriesBySearch(debouncedQuery);
+    }
+  }, [debouncedQuery]);
 
   return (
     <div className={styles.container}>
@@ -171,6 +194,14 @@ export default function Home() {
               payload: e.target.value as string,
             })
           }
+          continents={continents}
+          onClear={() => {
+            dispatch({
+              type: ActionTypes.SET_SEARCH,
+              payload: "",
+            });
+            getCountriesBySearch("");
+          }}
           icon={<MdSearch />}
         />
 

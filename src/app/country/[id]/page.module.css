@@ -68,6 +68,7 @@
         font-size: 16px;
         font-weight: 600;
         color: var(--secondary);
+        opacity: 0;
       }
 
       svg {
@@ -83,6 +84,7 @@
           transition: 0.8s;
           color: var(--quaternary);
           font-weight: 800;
+          opacity: 1;
         }
       }
     }
@@ -103,10 +105,8 @@
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      padding: 16px;
       position: relative;
       border-radius: 8px;
-      background-color: var(--gray-600);
 
       img {
         max-width: 250px;
@@ -144,9 +144,9 @@
         color: var(--secondary-dark);
         padding: 4px 16px;
         border-radius: 8px;
-        background-color: var(--gray-600);
+        background-color: var(--gray-500);
         font-size: 36px;
-        font-weight: 800;
+        font-weight: 400;
         color: var(--secondary);
         position: relative;
 
@@ -164,7 +164,7 @@
           gap: 8px;
 
           svg {
-            color: var(--primary-dar);
+            color: var(--primary);
             font-size: 16px;
           }
         }
@@ -196,18 +196,18 @@
     justify-content: flex-start;
     flex-wrap: wrap;
     gap: 36px;
-    margin-top: 3rem;
+    margin-top: 4rem;
 
     span {
       gap: 16px;
       min-width: 150px;
       font-size: 24px;
-      font-weight: 600;
+      font-weight: 400;
       color: var(--secondary);
-      padding: 4px 16px;
+      padding: 4px 8px;
       border-radius: 8px;
       position: relative;
-      background-color: var(--gray-600);
+      background-color: var(--gray-500);
 
       p {
         display: flex;
@@ -215,9 +215,8 @@
         justify-content: flex-start;
         position: absolute;
         font-size: 14px;
-        font-weight: 400;
-        color: var(--primary);
         font-weight: 800;
+        color: var(--primary);
         top: -24px;
         left: 0;
         gap: 8px;
@@ -289,7 +288,7 @@
 
     .countryData {
       margin-top: 1rem;
-      gap: 28px;
+      gap: 32px;
       flex-direction: column;
 
       .countryFlag {
@@ -300,6 +299,9 @@
         align-items: center;
         justify-content: center;
         background-color: transparent;
+        border: 2px solid var(--gray-500);
+        border-radius: 4px;
+        padding: 8px;
 
         img {
           max-width: 128px;
@@ -320,14 +322,15 @@
         flex-direction: column;
         gap: 28px;
         width: 100%;
+        min-width: 50%;
 
         h1 {
-          font-size: 16px;
-          padding: 8px 16px;
+          font-size: 14px;
+          padding: 4px 8px;
 
           p {
             font-size: 12px;
-            top: -20px;
+            top: -18px;
             gap: 4px;
 
             svg {
@@ -342,28 +345,21 @@
       }
     }
 
-    .countryDetails {
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-start;
-      gap: 16px;
-    }
-
     .moreDetails {
       display: flex;
       flex-direction: row;
-      margin-top: 2rem;
+      margin-top: 1.8rem;
       gap: 16px;
 
       span {
         margin-bottom: 16px;
         font-size: 14px;
         width: 100%;
-        padding: 8px 16px;
+        padding: 4px 8px;
 
         p {
           font-size: 12px;
-          top: -20px;
+          top: -18px;
           gap: 4px;
 
           svg {

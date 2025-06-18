@@ -15,50 +15,134 @@
     color: var(--secondary);
     gap: 16px;
 
-    .order {
+    .filterGroup {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 16px;
+      position: relative;
+      border-radius: 8px;
 
-      >div {
-        transition: .8s;
+      h3 {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 8px 0;
         gap: 8px;
-        font-size: 24px;
-        font-weight: 100;
+        font-size: 36px;
+      }
 
-        svg {
-          transition: .8s;
-          font-size: 24px;
-          color: var(--secondary-dark);
+      .filterPopUp {
+        opacity: 0;
+        transition: 0.8s;
+        position: absolute;
+        top: 40px;
+        left: 0;
+        gap: 24px;
+        padding: 16px;
+        z-index: 100;
+        background-color: var(--primary-dark);
+        border-radius: 8px;
+        width: 250px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+
+        >div {
+          display: flex;
+          align-items: flex-start;
+          flex-direction: column;
+          width: 100%;
+          gap: 8px;
+
+          span {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--secondary-dark);
+            border-bottom: 2px solid var(--secondary-dark);
+            width: 100%;
+          }
+
+          .order {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+
+            >div {
+              transition: .8s;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              padding: 8px 0;
+              gap: 8px;
+              font-size: 24px;
+              font-weight: 100;
+
+              svg {
+                transition: .8s;
+                font-size: 24px;
+                color: var(--secondary-dark);
+              }
+
+              &:hover {
+                transition: 1s;
+                cursor: pointer;
+              }
+
+              .arrowLeft {
+                transition: 1s;
+                transform: rotate(180deg);
+              }
+
+              .arrowRight {
+                transition: 1s;
+                transform: rotate(0deg);
+              }
+
+              .active {
+                transition: .8s;
+                color: var(--primary);
+                font-weight: 800;
+              }
+            }
+          }
+
+          .checkbox {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-direction: row;
+            gap: 4px;
+
+            .checkboxInput {
+              width: 16px;
+              height: 16px;
+              background-color: var(--gray-600);
+              color: var(--gray-600);
+              border-radius: 4px;
+              cursor: pointer;
+              border: 1px solid var(--gray-600);
+            }
+
+            >p {
+              font-size: 16px;
+            }
+          }
         }
 
-        &:hover {
-          transition: 1s;
-          cursor: pointer;
-        }
+      }
 
-        .arrowLeft {
-          transition: 1s;
-          transform: rotate(180deg);
-        }
+      &:hover {
+        transition: 0.8s;
+        cursor: pointer;
 
-        .arrowRight {
-          transition: 1s;
-          transform: rotate(0deg);
-        }
-
-        .active {
-          transition: .8s;
-          color: var(--primary);
-          font-weight: 800;
+        .filterPopUp {
+          opacity: 1;
         }
       }
     }
+
 
     .favorites,
     .favoritesActive {
@@ -89,12 +173,6 @@
         p {
           transition: 0.8s;
           font-weight: 800;
-          font-size: 20px;
-        }
-
-        svg {
-          transition: 0.8s;
-          font-size: 28px;
         }
       }
     }

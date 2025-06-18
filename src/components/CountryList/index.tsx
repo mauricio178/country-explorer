@@ -1,5 +1,5 @@
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { CountryRequestProps } from "../../types/types";
-import Animation, { AnimationType } from "../Animations";
 import CountryCard from "../CountryCard";
 import styles from "./page.module.css";
 
@@ -20,25 +20,29 @@ export default function CountryList(props: CountryListProps) {
   return (
     <div className={styles.container}>
       <ul className={noResults ? styles.countriesNoResults : styles.countries}>
-        {noResults ? (
-          <div className={styles.noResults}>
-            <p>
-              Oops, Nenhum país encontrado com este nome:{" "}
-              <strong>{search}</strong>
-            </p>
-            <Animation
-              type={AnimationType.NOT_FOUND}
-              size={{ width: "200px", height: "200px" }}
+        {isLoading ? (
+          <div className={styles.loading}>
+            <p>Buscando...</p>
+            <DotLottieReact
+              style={{ width: "150px", height: "150px" }}
+              src={`/load-search.lottie`}
+              autoplay
+              loop
             />
           </div>
         ) : (
           <>
-            {isLoading ? (
-              <div className={styles.loading}>
-                <p>Buscando...</p>
-                <Animation
-                  type={AnimationType.LOAD_SEARCH}
-                  size={{ width: "150px", height: "150px" }}
+            {noResults ? (
+              <div className={styles.noResults}>
+                <p>
+                  Oops, Nenhum país encontrado com este nome:{" "}
+                  <strong>{search}</strong>
+                </p>
+                <DotLottieReact
+                  style={{ width: "200px", height: "200px" }}
+                  src={`/not-found.lottie`}
+                  autoplay
+                  loop
                 />
               </div>
             ) : (

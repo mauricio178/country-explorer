@@ -13,6 +13,12 @@ export type CountryRequestProps = {
     nativeName: any | undefined;
   };
   favorite: boolean;
+  capital: any;
+  languages: any;
+  currencies: any;
+  region: any;
+  independent: any;
+  subregion: any;
 };
 
 export enum Order {

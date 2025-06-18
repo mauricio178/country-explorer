@@ -134,12 +134,12 @@ export default function CountryPage({ params }: PageProps) {
         >
           {country?.favorite ? (
             <>
-              <p>Remover dos favoritos</p>
+              <p>desfavoritar</p>
               <FaHeart />
             </>
           ) : (
             <>
-              <p>Favoritar</p>
+              <p>favoritar</p>
               <FaRegHeart />
             </>
           )}
@@ -162,7 +162,7 @@ export default function CountryPage({ params }: PageProps) {
             <p>
               <FaLanguage /> Nome Nativo
             </p>
-            {country?.nativeName}
+            {country?.nativeName || "-"}
           </h1>
         </div>
       </div>
@@ -170,7 +170,7 @@ export default function CountryPage({ params }: PageProps) {
       <div className={styles.moreDetails}>
         <span>
           <p>
-            <FaMapPin /> Região
+            <FaMapPin /> Continente
           </p>
           {country?.region || "-"}
         </span>

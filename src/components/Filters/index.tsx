@@ -1,12 +1,12 @@
-import { FaArrowRight } from "react-icons/fa6";
-
-import { Order } from "@/types/types";
-import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
-import styles from "./page.module.css";
-import Input from "../Input";
-import BreadCrumb from "../BreadCrumb";
-import { usePathname } from "next/navigation";
 import { systemPaths } from "@/constants/paths";
+import { Order } from "@/types/types";
+import { usePathname, useRouter } from "next/navigation";
+import { BsFilter } from "react-icons/bs";
+import { FaArrowRight } from "react-icons/fa";
+import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import BreadCrumb from "../BreadCrumb";
+import Input from "../Input";
+import styles from "./page.module.css";
 
 export enum FiltersTypes {
   ORDER = "order",
@@ -17,6 +17,8 @@ export interface FilterProps {
   order: string;
   favorites: string[];
   handleOrder: (type: FiltersTypes, order?: Order) => void;
+  onClear: () => void;
+  continents: string[];
   placeholder?: string;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -32,7 +34,11 @@ export default function Filters(props: FilterProps) {
     value,
     onChange,
     icon,
+    onClear,
+    continents,
   } = props;
+
+  const router = useRouter();
 
   const pathname = usePathname();
 
@@ -41,26 +47,47 @@ export default function Filters(props: FilterProps) {
       <BreadCrumb />
 
       <div className={styles.content}>
-        <div className={styles.order}>
-          <div
-            onClick={() =>
-              handleOrder(
-                FiltersTypes.ORDER,
-                order === Order.ASC ? Order.DESC : Order.ASC
-              )
-            }
-          >
-            <strong className={order === Order.DESC ? styles.active : ""}>
-              A
-            </strong>{" "}
-            <FaArrowRight
-              className={
-                order === Order.ASC ? styles.arrowRight : styles.arrowLeft
-              }
-            />{" "}
-            <strong className={order === Order.ASC ? styles.active : ""}>
-              Z
-            </strong>
+        <div className={styles.filterGroup}>
+          <h3>
+            <BsFilter />
+          </h3>
+
+          <div className={styles.filterPopUp}>
+            <div>
+              <span>Continente</span>
+              {continents.map((continent: string) => (
+                <div key={continent} className={styles.checkbox}>
+                  <input className={styles.checkboxInput} type="checkbox" />
+                  <p>{continent}</p>
+                </div>
+              ))}
+            </div>
+
+            <div>
+              <span>Ordenação</span>
+              <div className={styles.order}>
+                <div
+                  onClick={() =>
+                    handleOrder(
+                      FiltersTypes.ORDER,
+                      order === Order.ASC ? Order.DESC : Order.ASC
+                    )
+                  }
+                >
+                  <strong className={order === Order.DESC ? styles.active : ""}>
+                    A
+                  </strong>{" "}
+                  <FaArrowRight
+                    className={
+                      order === Order.ASC ? styles.arrowRight : styles.arrowLeft
+                    }
+                  />{" "}
+                  <strong className={order === Order.ASC ? styles.active : ""}>
+                    Z
+                  </strong>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -73,13 +100,20 @@ export default function Filters(props: FilterProps) {
             onChange(e as unknown as React.ChangeEvent<HTMLInputElement>)
           }
           icon={icon}
+          onClear={onClear}
         />
 
         <div
           className={`${styles.favorites}`}
+          title={
+            pathname === systemPaths.favorites
+              ? "Ver lista de países"
+              : "Ver favoritos"
+          }
           onClick={() =>
-            pathname !== systemPaths.favorites &&
-            handleOrder(FiltersTypes.FAVORITES)
+            pathname !== systemPaths.favorites
+              ? router.push(systemPaths.favorites)
+              : router.push(systemPaths.home)
           }
         >
           <p>{favorites.length}</p>
