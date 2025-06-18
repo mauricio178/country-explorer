@@ -2,46 +2,46 @@ import { systemPaths } from "@/constants/paths";
 import { Order } from "@/types/types";
 import { usePathname, useRouter } from "next/navigation";
 import { BsFilter } from "react-icons/bs";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowRight, FaGlobe, FaTimes } from "react-icons/fa";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import BreadCrumb from "../BreadCrumb";
 import Input from "../Input";
 import styles from "./page.module.css";
+import { ALL_CONTINENTS } from "@/constants/varibles";
 
 export enum FiltersTypes {
   ORDER = "order",
-  FAVORITES = "favorites",
+  CONTINENTS = "continents",
+  SEARCH = "search",
 }
 
 export interface FilterProps {
   order: string;
   favorites: string[];
-  handleOrder: (type: FiltersTypes, order?: Order) => void;
-  onClear: () => void;
-  continents: string[];
+  handleFilter: (type: FiltersTypes, order?: Order, value?: string) => void;
+  onClearSearch: () => void;
+  activeFilters: string[];
+  continents: { id: number; name: string; color: string }[];
   placeholder?: string;
   value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   icon?: React.ReactNode;
 }
 
 export default function Filters(props: FilterProps) {
   const {
     order = Order.ASC,
-    handleOrder,
+    handleFilter,
     favorites,
     placeholder,
     value,
-    onChange,
     icon,
-    onClear,
+    onClearSearch,
     continents,
+    activeFilters,
   } = props;
 
   const router = useRouter();
-
   const pathname = usePathname();
-
   return (
     <div className={styles.container}>
       <BreadCrumb />
@@ -55,10 +55,28 @@ export default function Filters(props: FilterProps) {
           <div className={styles.filterPopUp}>
             <div>
               <span>Continente</span>
-              {continents.map((continent: string) => (
-                <div key={continent} className={styles.checkbox}>
-                  <input className={styles.checkboxInput} type="checkbox" />
-                  <p>{continent}</p>
+              {continents.map((continent) => (
+                <div
+                  key={continent.name}
+                  className={
+                    activeFilters.includes(continent.name)
+                      ? styles.checkboxActive
+                      : styles.checkbox
+                  }
+                >
+                  <input
+                    onChange={() =>
+                      handleFilter(
+                        FiltersTypes.CONTINENTS,
+                        undefined,
+                        continent.name
+                      )
+                    }
+                    checked={activeFilters.includes(continent.name)}
+                    className={styles.checkboxInput}
+                    type="checkbox"
+                  />
+                  <p>{continent.name}</p>
                 </div>
               ))}
             </div>
@@ -68,7 +86,7 @@ export default function Filters(props: FilterProps) {
               <div className={styles.order}>
                 <div
                   onClick={() =>
-                    handleOrder(
+                    handleFilter(
                       FiltersTypes.ORDER,
                       order === Order.ASC ? Order.DESC : Order.ASC
                     )
@@ -91,12 +109,15 @@ export default function Filters(props: FilterProps) {
           placeholder={placeholder || ""}
           type="text"
           value={value || ""}
-          onChange={(e) =>
-            onChange &&
-            onChange(e as unknown as React.ChangeEvent<HTMLInputElement>)
-          }
+          onChange={(e) => {
+            handleFilter(
+              FiltersTypes.SEARCH,
+              undefined,
+              e.target.value as string
+            );
+          }}
           icon={icon}
-          onClear={onClear}
+          onClear={onClearSearch}
         />
 
         <div
@@ -121,6 +142,31 @@ export default function Filters(props: FilterProps) {
           )}
         </div>
       </div>
+
+      {activeFilters.length > 0 && (
+        <div className={styles.filter}>
+          <p>filtrando:</p>
+          {activeFilters.map((continent) => {
+            return (
+              <span key={continent}>
+                <FaGlobe
+                  className={styles.globe}
+                  style={{
+                    color: ALL_CONTINENTS.find((c) => c.name === continent)
+                      ?.color,
+                  }}
+                />
+                {continent}
+                <FaTimes
+                  onClick={() =>
+                    handleFilter(FiltersTypes.CONTINENTS, undefined, continent)
+                  }
+                />
+              </span>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

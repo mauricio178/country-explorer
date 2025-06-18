@@ -28,17 +28,22 @@ export enum Order {
 
 export enum ActionTypes {
   SET_ORDER = "SET_ORDER",
-  SET_FAVORITES = "SET_FAVORITES",
   SET_SEARCH = "SET_SEARCH",
+  SET_CONTINENTS = "SET_CONTINENTS",
 }
 
 export type FilterState = {
   order: string;
   search: string;
-  favorites: boolean;
+  continents: string[];
 };
 
 export type Action =
   | { type: ActionTypes.SET_ORDER; payload: Order }
-  | { type: ActionTypes.SET_FAVORITES; payload: boolean }
+  | { type: ActionTypes.SET_CONTINENTS; payload: string[] }
   | { type: ActionTypes.SET_SEARCH; payload: string };
+
+export type Continent = {
+  name: string;
+  id: string;
+};

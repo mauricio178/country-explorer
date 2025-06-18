@@ -42,9 +42,8 @@ type CountryInfo = {
 export default function CountryPage({ params }: PageProps) {
   const resolvedParams = React.use(params);
   const { id } = resolvedParams;
-  const router = useRouter();
   const [country, setCountry] = useState<CountryInfo | null>(null);
-
+  const router = useRouter();
   async function getCountryInfo() {
     const storageCountry = localStorage.getItem(STORAGE_KEY_ALL_COUNTRIES);
 
@@ -77,10 +76,6 @@ export default function CountryPage({ params }: PageProps) {
     setCountry(formattedCountry);
   }
 
-  function redirect(path: string) {
-    router.push(path);
-  }
-
   function handleFavorite() {
     const storageCountry = localStorage.getItem(STORAGE_KEY_ALL_COUNTRIES);
 
@@ -110,7 +105,7 @@ export default function CountryPage({ params }: PageProps) {
 
   useEffect(() => {
     if (!id) {
-      redirect(systemPaths.home);
+      router.push(systemPaths.home);
       return;
     }
 
@@ -120,10 +115,7 @@ export default function CountryPage({ params }: PageProps) {
   return (
     <div className={styles.container}>
       <div className={styles.topBar}>
-        <div
-          className={styles.backButton}
-          onClick={() => redirect(systemPaths.home)}
-        >
+        <div className={styles.backButton} onClick={() => router.back()}>
           <FaArrowLeft /> <p>Voltar</p>
         </div>
 

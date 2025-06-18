@@ -11,8 +11,8 @@ export const filterReducer = (
       return { ...state, order: action.payload };
     case ActionTypes.SET_SEARCH:
       return { ...state, search: action.payload };
-    case ActionTypes.SET_FAVORITES:
-      return { ...state, favorites: action.payload };
+    case ActionTypes.SET_CONTINENTS:
+      return { ...state, continents: action.payload };
     default:
       return state;
   }
@@ -22,7 +22,7 @@ export function useFilters() {
   const defaultFilters: FilterState = {
     order: "asc",
     search: "",
-    favorites: false,
+    continents: [],
   };
 
   const getInitialState = (): FilterState => {

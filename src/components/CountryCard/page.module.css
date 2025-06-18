@@ -102,6 +102,17 @@
     }
 
 
+    .continent {
+        position: absolute;
+        bottom: 0;
+        right: 8px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+
     &:hover {
         transition: 0.5s;
         background-color: var(--secondary) !important;
@@ -214,6 +225,15 @@
                 .link {
                     color: var(--gray-600) !important;
                 }
+            }
+        }
+
+        .continent {
+            top: -4px;
+            right: 2px;
+
+            svg {
+                font-size: 10px;
             }
         }
     }

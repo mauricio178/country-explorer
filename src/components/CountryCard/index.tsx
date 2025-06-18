@@ -9,6 +9,8 @@ import {
   MdOutlineOpenInNew,
 } from "react-icons/md";
 import styles from "./page.module.css";
+import { FaGlobe } from "react-icons/fa";
+import { ALL_CONTINENTS } from "@/constants/varibles";
 
 interface CountryCardProps {
   country: CountryRequestProps;
@@ -66,6 +68,14 @@ export default function CountryCard(props: CountryCardProps) {
             onClick={handleFavorite}
           />
         )}
+      </div>
+
+      <div className={styles.continent} title={country.region}>
+        <FaGlobe
+          style={{
+            color: ALL_CONTINENTS.find((c) => c.name === country.region)?.color,
+          }}
+        />
       </div>
     </li>
   );

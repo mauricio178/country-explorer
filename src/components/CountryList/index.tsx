@@ -14,9 +14,7 @@ interface CountryListProps {
 export default function CountryList(props: CountryListProps) {
   const { countries, filteredCountries, search, isLoading, handleFavorite } =
     props;
-
   const noResults = filteredCountries.length === 0 && search !== "";
-
   return (
     <div className={styles.container}>
       <ul className={noResults ? styles.countriesNoResults : styles.countries}>
