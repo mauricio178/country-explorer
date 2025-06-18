@@ -23,22 +23,11 @@
         height: 70vh;
 
         li:nth-child(odd) {
-            background-color: var(--secondary);
-            border: 1.2px solid var(--primary);
-
-            &:hover {
-                border: 1.2px solid var(--primary);
-            }
+            background-color: var(--gray-500);
         }
 
         li:nth-child(even) {
-            background-color: var(--primary);
-            border: 1.2px solid var(--secondary);
-
-            &:hover {
-                border: 1.2px solid var(--secondary);
-            }
-
+            background-color: var(--gray-600);
         }
 
         li {

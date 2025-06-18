@@ -56,9 +56,15 @@ export default function CountryCard(props: CountryCardProps) {
           className={styles.link}
         />
         {country.favorite ? (
-          <MdOutlineFavorite onClick={handleFavorite} />
+          <MdOutlineFavorite
+            className={styles.favoriteIcon}
+            onClick={handleFavorite}
+          />
         ) : (
-          <MdFavoriteBorder onClick={handleFavorite} />
+          <MdFavoriteBorder
+            className={styles.favoriteIcon}
+            onClick={handleFavorite}
+          />
         )}
       </div>
     </li>

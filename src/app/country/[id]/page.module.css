@@ -200,6 +200,7 @@
 
     span {
       gap: 16px;
+      min-width: 150px;
       font-size: 24px;
       font-weight: 600;
       color: var(--secondary);
@@ -260,7 +261,6 @@
     margin: 0 16px;
     display: flex;
     flex-direction: column;
-    padding-top: 12vh;
 
     .topBar {
       margin-bottom: 8px;
@@ -288,8 +288,8 @@
     }
 
     .countryData {
-      margin-top: 2rem;
-      gap: 48px;
+      margin-top: 1rem;
+      gap: 28px;
       flex-direction: column;
 
       .countryFlag {
@@ -298,11 +298,11 @@
         width: 100%;
         display: flex;
         align-items: center;
-        justify-content: flex-start;
+        justify-content: center;
         background-color: transparent;
 
         img {
-          max-width: 100px;
+          max-width: 128px;
         }
 
         p {
@@ -319,9 +319,11 @@
         display: flex;
         flex-direction: column;
         gap: 28px;
+        width: 100%;
 
         h1 {
           font-size: 16px;
+          padding: 8px 16px;
 
           p {
             font-size: 12px;
@@ -356,6 +358,8 @@
       span {
         margin-bottom: 16px;
         font-size: 14px;
+        width: 100%;
+        padding: 8px 16px;
 
         p {
           font-size: 12px;

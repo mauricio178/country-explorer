@@ -148,9 +148,6 @@ export default function CountryPage({ params }: PageProps) {
 
       <div className={styles.countryData}>
         <div className={styles.countryFlag}>
-          <p>
-            <FaFlag /> Bandeira
-          </p>
           <img src={country?.flag} alt={country?.name} />
         </div>
 
@@ -175,32 +172,34 @@ export default function CountryPage({ params }: PageProps) {
           <p>
             <FaMapPin /> Região
           </p>
-          {country?.region}
+          {country?.region || "-"}
         </span>
         <span>
           <p>
             <FaGlobe /> Subregião
           </p>
-          {country?.subregion}
+          {country?.subregion || "-"}
         </span>
         <span>
           <p>
             <FaLocationDot /> Capital
           </p>
-          {country?.capital}
+          {country?.capital && country?.capital.length > 0
+            ? country?.capital
+            : "-"}
         </span>
         <span>
           <p>
             <FaCoins /> Moeda
           </p>
-          {country?.currencies}
+          {country?.currencies || "-"}
         </span>
         <span>
           <p>
             <BsTranslate />
             Idioma(s)
           </p>
-          {country?.languages}
+          {country?.languages || "-"}
         </span>
         <span>
           <p>

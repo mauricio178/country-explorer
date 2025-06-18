@@ -8,6 +8,7 @@ import { useFilters } from "@/hooks/useFilters";
 import { ActionTypes, CountryRequestProps, Order } from "@/types/types";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { LiaHeartBrokenSolid } from "react-icons/lia";
 import { MdSearch } from "react-icons/md";
 import { toast } from "react-toastify";
 import styles from "./page.module.css";
@@ -125,20 +126,27 @@ export default function FavoritesPage() {
           icon={<MdSearch />}
         />
 
-        <CountryList
-          countries={countries
-            .filter((country) => country.favorite)
-            .sort((a, b) => {
-              if (state.order === Order.ASC) {
-                return a.name.common.localeCompare(b.name.common);
-              }
-              return b.name.common.localeCompare(a.name.common);
-            })}
-          filteredCountries={filteredCountries}
-          search={state.search}
-          isLoading={isLoading}
-          handleFavorite={handleFavorite}
-        />
+        {countries.filter((country) => country.favorite).length > 0 ? (
+          <CountryList
+            countries={countries
+              .filter((country) => country.favorite)
+              .sort((a, b) => {
+                if (state.order === Order.ASC) {
+                  return a.name.common.localeCompare(b.name.common);
+                }
+                return b.name.common.localeCompare(a.name.common);
+              })}
+            filteredCountries={filteredCountries}
+            search={state.search}
+            isLoading={isLoading}
+            handleFavorite={handleFavorite}
+          />
+        ) : (
+          <div className={styles.noFavorites}>
+            <p>Nenhum país favoritado</p>
+            <LiaHeartBrokenSolid />
+          </div>
+        )}
       </div>
     </div>
   );

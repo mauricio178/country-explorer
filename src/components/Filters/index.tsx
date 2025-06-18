@@ -77,7 +77,10 @@ export default function Filters(props: FilterProps) {
 
         <div
           className={`${styles.favorites}`}
-          onClick={() => handleOrder(FiltersTypes.FAVORITES)}
+          onClick={() =>
+            pathname !== systemPaths.favorites &&
+            handleOrder(FiltersTypes.FAVORITES)
+          }
         >
           <p>{favorites.length}</p>
 
