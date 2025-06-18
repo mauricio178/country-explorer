@@ -8,7 +8,6 @@ import {
   MdOutlineFavorite,
   MdOutlineOpenInNew,
 } from "react-icons/md";
-import "react-loading-skeleton/dist/skeleton.css";
 import styles from "./page.module.css";
 
 interface CountryCardProps {
