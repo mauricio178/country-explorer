@@ -31,17 +31,7 @@ export default function Home() {
 
   const onLoadScreen = async () => {
     setIsLoading(true);
-    const allCountries = localStorage.getItem(STORAGE_KEY_ALL_COUNTRIES);
-    const parsedCountries = JSON.parse(allCountries || "[]");
-
-    if (parsedCountries) {
-      setCountries(parsedCountries);
-      setIsLoading(false);
-      return;
-    }
-
     getContinents();
-
     const countriesResponse = await getCountriesEspecification(
       CountrySpecification.ALL
     );

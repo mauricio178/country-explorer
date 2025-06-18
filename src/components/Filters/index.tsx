@@ -74,17 +74,13 @@ export default function Filters(props: FilterProps) {
                     )
                   }
                 >
-                  <strong className={order === Order.DESC ? styles.active : ""}>
-                    A
-                  </strong>{" "}
+                  <p className={order === Order.DESC ? styles.active : ""}>A</p>{" "}
                   <FaArrowRight
                     className={
                       order === Order.ASC ? styles.arrowRight : styles.arrowLeft
                     }
                   />{" "}
-                  <strong className={order === Order.ASC ? styles.active : ""}>
-                    Z
-                  </strong>
+                  <p className={order === Order.ASC ? styles.active : ""}>Z</p>
                 </div>
               </div>
             </div>

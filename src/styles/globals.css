@@ -53,36 +53,6 @@ a {
   text-decoration: none;
 }
 
-.checkboxInput {
-  /* some o checkbox padrão */
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-
-  /* tamanho e formato */
-  width: 20px;
-  height: 20px;
-  border: 2px solid #333;
-  border-radius: 4px;
-
-  /* transição bonita */
-  transition: background 0.2s, border-color 0.2s;
-}
-
-.checkboxInput::after {
-  background: var(--secondary-dark);
-  border-color: var(--secondary-dark);
-}
-
-.checkboxInput:checked::after {
-  content: "✔";
-  color: var(--primary);
-  display: block;
-  text-align: center;
-  font-size: 14px;
-  line-height: 20px;
-}
-
 ::-webkit-scrollbar {
   border-radius: 10px;
   width: 8px;

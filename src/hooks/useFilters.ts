@@ -39,6 +39,8 @@ export function useFilters() {
   );
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     localStorage.setItem(FILTERS_STORAGE_KEY, JSON.stringify(state));
   }, [state]);
 
