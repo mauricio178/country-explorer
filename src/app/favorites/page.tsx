@@ -6,16 +6,14 @@ import { systemPaths } from "@/constants/paths";
 import { LABELS, STORAGE_KEY_ALL_COUNTRIES } from "@/constants/varibles";
 import { useFilters } from "@/hooks/useFilters";
 import { ActionTypes, CountryRequestProps, Order } from "@/types/types";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { MdSearch } from "react-icons/md";
-import styles from "./page.module.css";
 import { toast } from "react-toastify";
+import styles from "./page.module.css";
 
 export default function FavoritesPage() {
   const router = useRouter();
-
-  const pathname = usePathname();
 
   const { state, dispatch } = useFilters();
 
