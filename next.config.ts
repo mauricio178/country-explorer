@@ -1,14 +1,16 @@
 import type { NextConfig } from "next";
+import { systemPaths } from "@/constants/paths";
 
 const nextConfig: NextConfig = {
-  images: {
-    remotePatterns: [
+  async redirects() {
+    return [
       {
-        protocol: "http",
-        hostname: "localhost",
+        source: "/",
+        destination: systemPaths.home,
+        permanent: false,
       },
-    ],
+    ];
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
