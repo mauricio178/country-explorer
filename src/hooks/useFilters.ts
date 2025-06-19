@@ -13,6 +13,8 @@ export const filterReducer = (
       return { ...state, search: action.payload };
     case ActionTypes.SET_CONTINENTS:
       return { ...state, continents: action.payload };
+    case ActionTypes.SET_INDEPENDENT:
+      return { ...state, independent: action.payload };
     default:
       return state;
   }
@@ -23,6 +25,7 @@ export function useFilters() {
     order: "asc",
     search: "",
     continents: [],
+    independent: [],
   };
 
   const getInitialState = (): FilterState => {

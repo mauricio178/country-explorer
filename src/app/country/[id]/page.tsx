@@ -49,7 +49,10 @@ type CountryInfo = {
   /*
   Currencies of the country
   */
-  currencies: string;
+  currencies: {
+    name: string;
+    symbol: string;
+  };
   /*
   Region of the country
   */
@@ -96,8 +99,12 @@ export default function CountryPage({ params }: PageProps) {
         Object.values(country.name.nativeName || {})[0]?.official || "",
       flag: country.flags.png,
       capital: country.capital,
-      // @ts-expect-error - This is a workaround to get the native name of the country
-      currencies: Object.values(country.currencies || {})[0]?.name || "",
+      currencies: {
+        // @ts-expect-error - This is a workaround to get the name of the currency
+        name: Object.values(country.currencies || {})[0]?.name || "",
+        // @ts-expect-error - This is a workaround to get the symbol of the currency
+        symbol: Object.values(country.currencies || {})[0]?.symbol || "",
+      },
       region: country.region,
       subregion: country.subregion,
       languages: Object.values(country.languages || {}).join(", ") || "",
@@ -217,7 +224,9 @@ export default function CountryPage({ params }: PageProps) {
           <p>
             <FaCoins /> Moeda
           </p>
-          {country?.currencies || "-"}
+          {country?.currencies.name && country?.currencies.symbol
+            ? `(${country?.currencies.symbol}) - ${country?.currencies.name}`
+            : "-"}
         </span>
         <span>
           <p>

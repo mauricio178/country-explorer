@@ -30,22 +30,19 @@ export default function FavoritesPage() {
     updateActiveFilters();
   };
 
-  const updateActiveFilters = () => {
-    const newFilters: string[] = [];
+  function updateActiveFilters() {
+    const continentsArray =
+      state.continents.length > 0 ? state.continents.map((c) => c) : [];
+    const independentArray =
+      state.independent.length > 0 ? state.independent.map((c) => c) : [];
 
-    state.continents.forEach((c) => {
-      if (c !== "" && !newFilters.includes(c)) {
-        newFilters.push(c);
-      }
-    });
+    const filterString: string[] = continentsArray.concat(independentArray);
 
-    setActiveFilters(newFilters);
-  };
+    setActiveFilters(filterString);
+  }
 
   useEffect(() => {
-    if (state.continents.length > 0) {
-      updateActiveFilters();
-    }
+    updateActiveFilters();
   }, [state]);
 
   const handleFavorite = (country: CountryRequestProps) => {
@@ -90,11 +87,48 @@ export default function FavoritesPage() {
           });
         }
         break;
+      case FiltersTypes.INDEPENDENT:
+        if (value === FiltersTypes.INDEPENDENT) {
+          if (state.independent.includes(FiltersTypes.INDEPENDENT)) {
+            dispatch({
+              type: ActionTypes.SET_INDEPENDENT,
+              payload: state.independent.filter(
+                (c) => c !== FiltersTypes.INDEPENDENT
+              ),
+            });
+          } else {
+            dispatch({
+              type: ActionTypes.SET_INDEPENDENT,
+              payload: [...state.independent, value || ""],
+            });
+          }
+        } else {
+          if (state.independent.includes(FiltersTypes.INDEPENDENT_FALSE)) {
+            dispatch({
+              type: ActionTypes.SET_INDEPENDENT,
+              payload: state.independent.filter(
+                (c) => c !== FiltersTypes.INDEPENDENT_FALSE
+              ),
+            });
+          } else {
+            dispatch({
+              type: ActionTypes.SET_INDEPENDENT,
+              payload: [...state.independent, value || ""],
+            });
+          }
+        }
+
+        break;
     }
 
     setTimeout(() => {
       setIsLoading(false);
     }, 1000);
+  };
+
+  const handleClearSearch = () => {
+    handleFilter(FiltersTypes.SEARCH, undefined, "");
+    getCountriesBySearch("");
   };
 
   function getCountriesBySearch(search: string) {
@@ -169,10 +203,7 @@ export default function FavoritesPage() {
           handleFilter={handleFilter}
           placeholder={LABELS.SEARCH_BY_COUNTRY_NAME}
           value={state.search}
-          onClearSearch={() => {
-            handleFilter(FiltersTypes.SEARCH, undefined, "");
-            getCountriesBySearch("");
-          }}
+          onClearSearch={handleClearSearch}
           icon={<MdSearch />}
           continents={ALL_CONTINENTS}
           activeFilters={activeFilters}
@@ -181,11 +212,26 @@ export default function FavoritesPage() {
         {countries.filter((country) => country.favorite).length > 0 ? (
           <CountryList
             countries={countries
-              .filter((country) =>
-                activeFilters.length > 0
-                  ? activeFilters.includes(country.region)
-                  : true
-              )
+              .filter((c) => {
+                if (
+                  state.independent.length > 0 &&
+                  state.independent.includes(FiltersTypes.INDEPENDENT)
+                ) {
+                  return c.independent === true;
+                } else if (
+                  state.independent.length > 0 &&
+                  state.independent.includes(FiltersTypes.INDEPENDENT_FALSE)
+                ) {
+                  return c.independent === false;
+                }
+                return true;
+              })
+              .filter((c) => {
+                if (state.continents.length > 0) {
+                  return state.continents.includes(c.region || "");
+                }
+                return true;
+              })
               .filter((country) => country.favorite)
               .sort((a: CountryRequestProps, b: CountryRequestProps) => {
                 if (state.order === Order.ASC) {

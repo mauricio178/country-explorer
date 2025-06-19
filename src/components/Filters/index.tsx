@@ -2,17 +2,20 @@ import { systemPaths } from "@/constants/paths";
 import { Order } from "@/types/types";
 import { usePathname, useRouter } from "next/navigation";
 import { BsFilter } from "react-icons/bs";
-import { FaArrowRight, FaGlobe, FaTimes } from "react-icons/fa";
+import { FaArrowRight, FaFlag, FaGlobe, FaSort, FaTimes } from "react-icons/fa";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import BreadCrumb from "../BreadCrumb";
 import Input from "../Input";
 import styles from "./page.module.css";
-import { ALL_CONTINENTS } from "@/constants/varibles";
+import { ALL_CONTINENTS, INDEPENDENT_LABELS } from "@/constants/varibles";
+import { LuFlagOff } from "react-icons/lu";
 
 export enum FiltersTypes {
   ORDER = "order",
   CONTINENTS = "continents",
   SEARCH = "search",
+  INDEPENDENT = "independent",
+  INDEPENDENT_FALSE = "independentFalse",
 }
 
 export interface FilterProps {
@@ -81,7 +84,9 @@ export default function Filters(props: FilterProps) {
 
           <div className={styles.filterPopUp}>
             <div>
-              <span>Continente</span>
+              <span>
+                <FaGlobe /> Continente
+              </span>
               {continents.map((continent) => (
                 <div
                   key={continent.name}
@@ -109,7 +114,78 @@ export default function Filters(props: FilterProps) {
             </div>
 
             <div>
-              <span>Ordenação</span>
+              <span>
+                <FaFlag /> Independente
+              </span>
+              <div className={styles.checkboxRow}>
+                <div
+                  className={
+                    activeFilters.includes(FiltersTypes.INDEPENDENT)
+                      ? styles.checkboxActive
+                      : styles.checkbox
+                  }
+                >
+                  <input
+                    type="checkbox"
+                    checked={activeFilters.includes(FiltersTypes.INDEPENDENT)}
+                    style={{
+                      cursor: activeFilters.includes(
+                        FiltersTypes.INDEPENDENT_FALSE
+                      )
+                        ? "not-allowed"
+                        : "pointer",
+                    }}
+                    disabled={activeFilters.includes(
+                      FiltersTypes.INDEPENDENT_FALSE
+                    )}
+                    onChange={() =>
+                      handleFilter(
+                        FiltersTypes.INDEPENDENT,
+                        undefined,
+                        FiltersTypes.INDEPENDENT
+                      )
+                    }
+                    className={styles.checkboxInput}
+                  />
+                  <p>Sim</p>
+                </div>
+
+                <div
+                  className={
+                    activeFilters.includes(FiltersTypes.INDEPENDENT)
+                      ? styles.checkboxActive
+                      : styles.checkbox
+                  }
+                >
+                  <input
+                    type="checkbox"
+                    checked={activeFilters.includes(
+                      FiltersTypes.INDEPENDENT_FALSE
+                    )}
+                    style={{
+                      cursor: activeFilters.includes(FiltersTypes.INDEPENDENT)
+                        ? "not-allowed"
+                        : "pointer",
+                    }}
+                    disabled={activeFilters.includes(FiltersTypes.INDEPENDENT)}
+                    onChange={() =>
+                      handleFilter(
+                        FiltersTypes.INDEPENDENT,
+                        undefined,
+                        FiltersTypes.INDEPENDENT_FALSE
+                      )
+                    }
+                    className={styles.checkboxInput}
+                  />
+                  <p>Não</p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <span>
+                <FaSort /> Ordenação
+              </span>
               <div className={styles.order}>
                 <div
                   onClick={() =>
@@ -172,21 +248,40 @@ export default function Filters(props: FilterProps) {
 
       {activeFilters.length > 0 && (
         <div className={styles.filter}>
-          <p>filtrando:</p>
-          {activeFilters.map((continent) => {
+          <p>Filtros:</p>
+          {activeFilters.map((filter) => {
             return (
-              <span key={continent}>
-                <FaGlobe
-                  className={styles.globe}
-                  style={{
-                    color: ALL_CONTINENTS.find((c) => c.name === continent)
-                      ?.color,
-                  }}
-                />
-                {continent}
+              <span key={filter}>
+                {filter === FiltersTypes.INDEPENDENT ||
+                filter === FiltersTypes.INDEPENDENT_FALSE ? (
+                  filter === FiltersTypes.INDEPENDENT ? (
+                    <FaFlag className={styles.flag} />
+                  ) : (
+                    <LuFlagOff className={styles.flag} />
+                  )
+                ) : (
+                  <FaGlobe
+                    className={styles.globe}
+                    style={{
+                      color: ALL_CONTINENTS.find((c) => c.name === filter)
+                        ?.color,
+                    }}
+                  />
+                )}
+                {filter === FiltersTypes.INDEPENDENT ||
+                filter === FiltersTypes.INDEPENDENT_FALSE
+                  ? INDEPENDENT_LABELS[filter]
+                  : filter}
                 <FaTimes
                   onClick={() =>
-                    handleFilter(FiltersTypes.CONTINENTS, undefined, continent)
+                    handleFilter(
+                      filter === FiltersTypes.INDEPENDENT ||
+                        filter === FiltersTypes.INDEPENDENT_FALSE
+                        ? FiltersTypes.INDEPENDENT
+                        : FiltersTypes.CONTINENTS,
+                      undefined,
+                      filter
+                    )
                   }
                 />
               </span>

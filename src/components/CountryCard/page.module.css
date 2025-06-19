@@ -102,10 +102,27 @@
     }
 
 
-    .continent {
+    .category {
         position: absolute;
-        bottom: 0;
+        bottom: 8px;
         right: 8px;
+        backdrop-filter: blur(1px);
+        border: 1px solid var(--gray-400);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        padding: 2px 4px;
+        border-radius: 2px;
+
+        >svg {
+            font-size: 12px;
+            color: var(--secondary);
+        }
+
+        svg:last-child {
+            color: var(--primary);
+        }
 
         &:hover {
             cursor: pointer;
@@ -146,7 +163,20 @@
 
         .countryInfo {
             transition: 0.5s;
-            border-left: 1.5px solid var(--primary-dark);
+            border-left: 1.5px solid var(--secondary-dark);
+        }
+
+        .category {
+            transition: 0.5s;
+            border: 1px solid var(--secondary-dark);
+
+            >svg {
+                color: var(--gray-600);
+            }
+
+            svg:last-child {
+                color: var(--gray-600);
+            }
         }
     }
 }
@@ -185,7 +215,8 @@
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                margin-right: 52px;
+                margin-right: 90px;
+                max-width: 80%;
 
                 svg {
                     font-size: 10px;
@@ -205,14 +236,15 @@
 
         .favoriteShow,
         .favoriteShowOnlyOnHover {
-            height: 34px;
+            height: 14px;
             transition: 0.5s;
             border-radius: 2px;
 
+
             svg {
-                padding: 2px;
-                width: 24px;
-                height: 24px;
+                padding: 0px;
+                width: 20px;
+                height: 20px;
             }
         }
 
@@ -228,9 +260,14 @@
             }
         }
 
-        .continent {
-            top: -4px;
-            right: 2px;
+        .category {
+            bottom: 4px;
+            right: 4px;
+            height: 16px;
+            padding: 2px 4px;
+            border-radius: 2px;
+            backdrop-filter: blur(4px);
+            border: 1px solid var(--gray-400);
 
             svg {
                 font-size: 10px;

@@ -9,8 +9,9 @@ import {
   MdOutlineOpenInNew,
 } from "react-icons/md";
 import styles from "./page.module.css";
-import { FaGlobe } from "react-icons/fa";
+import { FaFlag, FaGlobe } from "react-icons/fa";
 import { ALL_CONTINENTS } from "@/constants/varibles";
+import { LuFlagOff } from "react-icons/lu";
 
 interface CountryCardProps {
   /*
@@ -76,12 +77,18 @@ export default function CountryCard(props: CountryCardProps) {
         )}
       </div>
 
-      <div className={styles.continent} title={country.region}>
+      <div className={styles.category}>
         <FaGlobe
+          title={country.region}
           style={{
             color: ALL_CONTINENTS.find((c) => c.name === country.region)?.color,
           }}
         />
+        {country.independent ? (
+          <FaFlag title="Independente" />
+        ) : (
+          <LuFlagOff title="Não independente" />
+        )}
       </div>
     </li>
   );

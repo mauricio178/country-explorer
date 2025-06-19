@@ -30,11 +30,16 @@ export default function Home() {
 
   const { state, dispatch } = useFilters();
 
-  useEffect(() => {
-    if (state.continents.length > 0) {
-      setActiveFilters(state.continents.map((c) => c));
-    }
-  }, [state.continents]);
+  function updateActiveFilters() {
+    const continentsArray =
+      state.continents.length > 0 ? state.continents.map((c) => c) : [];
+    const independentArray =
+      state.independent.length > 0 ? state.independent.map((c) => c) : [];
+
+    const filterString: string[] = continentsArray.concat(independentArray);
+
+    setActiveFilters(filterString);
+  }
 
   const onLoadScreen = async () => {
     setIsLoading(true);
@@ -146,23 +151,43 @@ export default function Home() {
           });
         }
         break;
+      case FiltersTypes.INDEPENDENT:
+        if (value === FiltersTypes.INDEPENDENT) {
+          if (state.independent.includes(FiltersTypes.INDEPENDENT)) {
+            dispatch({
+              type: ActionTypes.SET_INDEPENDENT,
+              payload: state.independent.filter(
+                (c) => c !== FiltersTypes.INDEPENDENT
+              ),
+            });
+          } else {
+            dispatch({
+              type: ActionTypes.SET_INDEPENDENT,
+              payload: [...state.independent, value || ""],
+            });
+          }
+        } else {
+          if (state.independent.includes(FiltersTypes.INDEPENDENT_FALSE)) {
+            dispatch({
+              type: ActionTypes.SET_INDEPENDENT,
+              payload: state.independent.filter(
+                (c) => c !== FiltersTypes.INDEPENDENT_FALSE
+              ),
+            });
+          } else {
+            dispatch({
+              type: ActionTypes.SET_INDEPENDENT,
+              payload: [...state.independent, value || ""],
+            });
+          }
+        }
+
+        break;
     }
 
     setTimeout(() => {
       setIsLoading(false);
     }, 1000);
-  };
-
-  const updateActiveFilters = () => {
-    const newFilters: string[] = [];
-
-    state.continents.forEach((c) => {
-      if (c !== "" && !newFilters.includes(c)) {
-        newFilters.push(c);
-      }
-    });
-
-    setActiveFilters(newFilters);
   };
 
   useEffect(() => {
@@ -214,8 +239,22 @@ export default function Home() {
           <CountryList
             countries={countries
               .filter((c) => {
-                if (activeFilters.length > 0) {
-                  return activeFilters.includes(c.region || "");
+                if (
+                  state.independent.length > 0 &&
+                  state.independent.includes(FiltersTypes.INDEPENDENT)
+                ) {
+                  return c.independent === true;
+                } else if (
+                  state.independent.length > 0 &&
+                  state.independent.includes(FiltersTypes.INDEPENDENT_FALSE)
+                ) {
+                  return c.independent === false;
+                }
+                return true;
+              })
+              .filter((c) => {
+                if (state.continents.length > 0) {
+                  return state.continents.includes(c.region || "");
                 }
                 return true;
               })

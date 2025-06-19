@@ -15,9 +15,12 @@ export type CountryRequestProps = {
   favorite: boolean;
   capital: any;
   languages: any;
-  currencies: any;
+  currencies: {
+    name: string;
+    symbol: string;
+  };
   region: any;
-  independent: any;
+  independent: boolean;
   subregion: any;
 };
 
@@ -30,18 +33,21 @@ export enum ActionTypes {
   SET_ORDER = "SET_ORDER",
   SET_SEARCH = "SET_SEARCH",
   SET_CONTINENTS = "SET_CONTINENTS",
+  SET_INDEPENDENT = "SET_INDEPENDENT",
 }
 
 export type FilterState = {
   order: string;
   search: string;
   continents: string[];
+  independent: string[];
 };
 
 export type Action =
   | { type: ActionTypes.SET_ORDER; payload: Order }
   | { type: ActionTypes.SET_CONTINENTS; payload: string[] }
-  | { type: ActionTypes.SET_SEARCH; payload: string };
+  | { type: ActionTypes.SET_SEARCH; payload: string }
+  | { type: ActionTypes.SET_INDEPENDENT; payload: string[] };
 
 export type Continent = {
   name: string;
