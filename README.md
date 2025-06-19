@@ -1,5 +1,9 @@
 ### Getting Started
 
+### DEPLOYED APLICATION
+
+You can acess the current project runnig at link: https://wrld-xpl.netlify.app
+
 # BRANCH AND VERSION
 
 - Make sure you are at branch >> `master` <<
