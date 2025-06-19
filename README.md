@@ -2,7 +2,7 @@
 
 ### DEPLOYED APLICATION
 
-You can acess the current project runnig at link: https://wrld-xpl.netlify.app
+You can acess the current project runnig at link: [https://wrld-xpl.netlify.app](https://wrld-xpl.netlify.app)
 
 # BRANCH AND VERSION
 
