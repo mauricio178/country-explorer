@@ -1,3 +1,5 @@
-export const COUNTRY_PATHS = {
-  ALL: "/all",
+export const systemPaths = {
+  home: "/home",
+  countryId: (id: string) => `/country/${id}`,
+  favorites: "/favorites",
 };

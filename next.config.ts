@@ -1,7 +1,16 @@
 import type { NextConfig } from "next";
+import { systemPaths } from "@/constants/paths";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: systemPaths.home,
+        permanent: false,
+      },
+    ];
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

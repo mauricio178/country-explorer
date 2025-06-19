@@ -1,0 +1,303 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-top: 11vh;
+  gap: 8px;
+
+  .content {
+    display: flex;
+    align-items: center;
+    border-radius: 2px;
+    width: 100%;
+    color: var(--secondary);
+    gap: 16px;
+
+    .filterGroup {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      position: relative;
+
+      h3 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-size: 36px;
+      }
+
+      .filterPopUp {
+        transition: 0.4s;
+        position: absolute;
+        top: 48px;
+        left: 0;
+        gap: 24px;
+        padding: 16px;
+        z-index: 99;
+        background-color: var(--primary-dark);
+        border-radius: 4px;
+        width: 350px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        opacity: 0;
+        visibility: hidden;
+
+        >div {
+          display: flex;
+          align-items: flex-start;
+          flex-direction: column;
+          width: 100%;
+
+          span {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--primary);
+            width: 100%;
+          }
+
+          .order {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+
+            >div {
+              transition: .8s;
+              display: flex;
+              align-items: center;
+              justify-content: flex-start;
+              gap: 16px;
+              font-size: 24px;
+              font-weight: 100;
+              width: 100%;
+
+              svg {
+                transition: .8s;
+                font-size: 24px;
+                color: var(--secondary);
+              }
+
+              &:hover {
+                transition: 1s;
+                cursor: pointer;
+              }
+
+              .arrowLeft {
+                transition: 1s;
+                transform: rotate(180deg);
+              }
+
+              .arrowRight {
+                transition: 1s;
+                transform: rotate(0deg);
+              }
+
+              .active {
+                transition: .8s;
+                color: var(--primary);
+                font-weight: 800;
+              }
+            }
+          }
+
+          .checkbox,
+          .checkboxActive {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-direction: row;
+            gap: 4px;
+
+            .checkboxInput {
+              width: 16px;
+              height: 16px;
+              background-color: var(--gray-600);
+              color: var(--gray-600);
+              border-radius: 4px;
+              cursor: pointer;
+              border: 1px solid var(--gray-600);
+            }
+
+            >p {
+              font-size: 16px;
+            }
+
+            &:hover {
+              transition: 0.4s;
+              cursor: pointer;
+              font-weight: 800;
+              color: var(--secondary-dark);
+            }
+          }
+
+          .checkboxActive {
+            p {
+              color: var(--secondary-dark);
+              font-weight: 800;
+            }
+          }
+        }
+
+        .checkboxRow {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 24px;
+          width: 100%;
+
+          .checkbox {
+
+            &:hover {
+              transition: 0.4s;
+              cursor: pointer;
+              font-weight: 800;
+              color: var(--secondary-dark);
+            }
+          }
+        }
+
+      }
+
+      &:hover {
+        transition: 0.4s;
+        cursor: pointer;
+
+        .filterPopUp {
+          transition: 0.4s;
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+
+    .favorites,
+    .favoritesActive {
+      transition: 0.8s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 8px;
+
+      p {
+        transition: 0.8s;
+        font-size: 18px;
+        font-weight: 800;
+        color: var(--secondary);
+      }
+
+      svg {
+        transition: 0.8s;
+        font-size: 24px;
+        color: var(--quaternary);
+      }
+
+      &:hover {
+        transition: 0.8s;
+        cursor: pointer;
+
+        p {
+          transition: 0.8s;
+          font-weight: 800;
+        }
+      }
+    }
+  }
+
+  .filter {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 8px;
+    gap: 4px;
+
+    p {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-right: 8px;
+    }
+
+    >span {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 8px;
+      gap: 8px;
+      padding: 2px 8px;
+      border-radius: 2px;
+      background-color: var(--gray-500);
+
+      .globe {
+        font-size: 10px;
+      }
+
+      .flag {
+        font-size: 10px;
+        color: var(--primary);
+      }
+
+      svg {
+        transition: 0.4s;
+        color: var(--gray-200);
+      }
+
+      &:hover {
+        transition: 0.4s;
+        cursor: pointer;
+        background-color: var(--gray-600);
+
+        svg:last-child {
+          transition: 0.8s;
+          cursor: pointer;
+          color: var(--quaternary);
+          rotate: 90deg;
+        }
+      }
+    }
+  }
+}
+
+.favoritesActive {
+  background-color: var(--primary);
+}
+
+@media (max-width: 768px) {
+  .container {
+
+    .filter {
+      flex-wrap: wrap;
+      gap: 4px;
+
+      >span {
+        font-size: 12px;
+      }
+    }
+
+    .order {
+      >div {
+        gap: 2px;
+      }
+    }
+
+    .content {
+      .filterGroup {
+        .filterPopUp {
+          width: 90vw;
+        }
+      }
+    }
+  }
+
+}

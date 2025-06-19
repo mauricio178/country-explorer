@@ -1,0 +1,20 @@
+.container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  p {
+    color: var(--secondary);
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .active {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--secondary-dark);
+  }
+}

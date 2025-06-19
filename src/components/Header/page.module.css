@@ -2,18 +2,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 80px;
   width: 100%;
   position: fixed;
   top: 0;
   left: 0;
+  height: 10vh;
   right: 0;
   z-index: 2;
   background-color: var(--primary);
-  box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.36);
+  padding: 0 100px;
 
   .logo {
-    margin: 40px 82px 35px 100px;
+    margin: 40px 82px 35px 0;
 
     img {
       transition: 0.3s;
@@ -21,7 +21,7 @@
 
       &:hover {
         transition: 0.3s;
-        height: 47px;
+        height: 46px;
         cursor: pointer;
       }
     }
@@ -30,7 +30,7 @@
 
 @media (max-width: 850px) {
   .container {
-    height: 60px;
+    height: 8vh;
     justify-content: center;
 
     .logo {
@@ -38,6 +38,10 @@
 
       img {
         height: 35px;
+
+        &:hover {
+          height: 36px;
+        }
       }
     }
   }

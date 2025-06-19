@@ -6,6 +6,7 @@ export default function Footer() {
       <div className={styles.logo}>
         <img src="/full-logo.png" alt="Country Explorer" />
       </div>
+      <p>℗</p>
     </div>
   );
 }

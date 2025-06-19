@@ -1,8 +1,5 @@
 "use client";
-import {
-  CountrySpecification,
-  getCountriesEspecification,
-} from "@/actions/countries";
+
 import CountryList from "@/components/CountryList";
 import Filters, { FiltersTypes } from "@/components/Filters";
 import {
@@ -11,24 +8,27 @@ import {
   STORAGE_KEY_ALL_COUNTRIES,
 } from "@/constants/varibles";
 import { useFilters } from "@/hooks/useFilters";
+import { ActionTypes, CountryRequestProps, Order } from "@/types/types";
 import { useEffect, useState } from "react";
+import { LiaHeartBrokenSolid } from "react-icons/lia";
 import { MdSearch } from "react-icons/md";
 import { toast } from "react-toastify";
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
-import { ActionTypes, CountryRequestProps, Order } from "../../types/types";
 import styles from "./page.module.css";
 
-export default function Home() {
-  const [isLoading, setIsLoading] = useState(false);
+export default function FavoritesPage() {
+  const { state, dispatch } = useFilters();
+
   const [countries, setCountries] = useState<CountryRequestProps[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [debouncedQuery, setDebouncedQuery] = useState("");
+  const [activeFilters, setActiveFilters] = useState<string[]>([]);
   const [filteredCountries, setFilteredCountries] = useState<string[]>([]);
 
-  const [activeFilters, setActiveFilters] = useState<string[]>([]);
-
-  const [debouncedQuery, setDebouncedQuery] = useState("");
-
-  const { state, dispatch } = useFilters();
+  const onLoadScreen = async () => {
+    const countriesStorage = localStorage.getItem(STORAGE_KEY_ALL_COUNTRIES);
+    setCountries(JSON.parse(countriesStorage || "[]"));
+    updateActiveFilters();
+  };
 
   function updateActiveFilters() {
     const continentsArray =
@@ -41,44 +41,9 @@ export default function Home() {
     setActiveFilters(filterString);
   }
 
-  const onLoadScreen = async () => {
-    setIsLoading(true);
-    const storageCountries = localStorage.getItem(STORAGE_KEY_ALL_COUNTRIES);
-    const parsedCountries = JSON.parse(storageCountries || "[]");
-
-    if (parsedCountries.length > 0) {
-      setCountries(parsedCountries);
-      setIsLoading(false);
-      return;
-    }
-
-    const countriesResponse = await getCountriesEspecification(
-      CountrySpecification.ALL
-    );
-
-    if (!countriesResponse) return;
-
-    const formattedCountries = countriesResponse
-      .sort((a: CountryRequestProps, b: CountryRequestProps) =>
-        a.name.common.localeCompare(b.name.common)
-      )
-      .map((country: CountryRequestProps) => {
-        const ramdomID = crypto.randomUUID();
-        return {
-          ...country,
-          id: ramdomID,
-          favorite: false,
-        };
-      });
-
-    setCountries(formattedCountries);
-    toast.success(LABELS.COUNTRIES_LOADED_SUCCESSFULLY);
-    localStorage.setItem(
-      STORAGE_KEY_ALL_COUNTRIES,
-      JSON.stringify(formattedCountries)
-    );
-    setIsLoading(false);
-  };
+  useEffect(() => {
+    updateActiveFilters();
+  }, [state]);
 
   const handleFavorite = (country: CountryRequestProps) => {
     const newCountries = countries.map((c) =>
@@ -96,35 +61,6 @@ export default function Home() {
 
     setCountries(newCountries);
   };
-
-  function getCountriesBySearch(search: string) {
-    const countriesStorage = localStorage.getItem(STORAGE_KEY_ALL_COUNTRIES);
-
-    if (search === "") {
-      setFilteredCountries([]);
-      setCountries(JSON.parse(countriesStorage || "[]"));
-      return;
-    }
-
-    const filteredIds: string[] = [];
-
-    function normalizeString(string: string) {
-      return string
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLowerCase();
-    }
-
-    countries?.forEach((country) => {
-      if (
-        normalizeString(country.name.common).includes(normalizeString(search))
-      ) {
-        filteredIds.push(country.id);
-      }
-    });
-
-    setFilteredCountries(filteredIds);
-  }
 
   const handleFilter = (type: FiltersTypes, order?: Order, value?: string) => {
     setIsLoading(true);
@@ -190,15 +126,58 @@ export default function Home() {
     }, 1000);
   };
 
+  const handleClearSearch = () => {
+    handleFilter(FiltersTypes.SEARCH, undefined, "");
+    getCountriesBySearch("");
+  };
+
+  function getCountriesBySearch(search: string) {
+    if (isLoading) return;
+
+    const countriesStorage = localStorage.getItem(STORAGE_KEY_ALL_COUNTRIES);
+
+    if (state.search === "") {
+      setFilteredCountries([]);
+      setCountries(JSON.parse(countriesStorage || "[]"));
+      setIsLoading(false);
+      return;
+    }
+
+    const filteredIds: string[] = [];
+
+    function normalizeString(string: string) {
+      return string
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase();
+    }
+
+    countries?.forEach((country) => {
+      if (
+        normalizeString(country.name.common).includes(normalizeString(search))
+      ) {
+        filteredIds.push(country.id);
+      }
+    });
+
+    setTimeout(() => {
+      setFilteredCountries(filteredIds);
+    }, 1000);
+  }
+
   useEffect(() => {
+    getCountriesBySearch("");
     onLoadScreen();
-    updateActiveFilters();
-  }, [state]);
+  }, []);
 
   useEffect(() => {
     setIsLoading(true);
     const handler = setTimeout(() => {
       setDebouncedQuery(state.search);
+      dispatch({
+        type: ActionTypes.SET_SEARCH,
+        payload: state.search,
+      });
       setIsLoading(false);
     }, 1000);
 
@@ -215,27 +194,22 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <Header />
-      </div>
-
-      <div className={styles.content}>
+      <div className={styles.favoritesList}>
         <Filters
           order={state.order}
-          favorites={countries.filter((c) => c.favorite).map((c) => c.id)}
+          favorites={countries
+            .filter((country) => country.favorite)
+            .map((country) => country.id)}
           handleFilter={handleFilter}
           placeholder={LABELS.SEARCH_BY_COUNTRY_NAME}
           value={state.search}
-          continents={ALL_CONTINENTS}
-          onClearSearch={() => {
-            handleFilter(FiltersTypes.SEARCH, undefined, "");
-            getCountriesBySearch("");
-          }}
-          activeFilters={activeFilters}
+          onClearSearch={handleClearSearch}
           icon={<MdSearch />}
+          continents={ALL_CONTINENTS}
+          activeFilters={activeFilters}
         />
 
-        <div className={styles.list}>
+        {countries.filter((country) => country.favorite).length > 0 ? (
           <CountryList
             countries={countries
               .filter((c) => {
@@ -258,7 +232,8 @@ export default function Home() {
                 }
                 return true;
               })
-              .sort((a, b) => {
+              .filter((country) => country.favorite)
+              .sort((a: CountryRequestProps, b: CountryRequestProps) => {
                 if (state.order === Order.ASC) {
                   return a.name.common.localeCompare(b.name.common);
                 }
@@ -269,11 +244,12 @@ export default function Home() {
             isLoading={isLoading}
             handleFavorite={handleFavorite}
           />
-        </div>
-      </div>
-
-      <div className={styles.footer}>
-        <Footer />
+        ) : (
+          <div className={styles.noFavorites}>
+            <p>Nenhum país favoritado</p>
+            <LiaHeartBrokenSolid className={styles.float} />
+          </div>
+        )}
       </div>
     </div>
   );
