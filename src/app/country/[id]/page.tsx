@@ -20,6 +20,7 @@ import {
 import { FaLocationDot } from "react-icons/fa6";
 import styles from "./page.module.css";
 import { toast } from "react-toastify";
+import { LuFlagOff } from "react-icons/lu";
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -237,7 +238,7 @@ export default function CountryPage({ params }: PageProps) {
         </span>
         <span>
           <p>
-            <FaFlag /> Independente
+            {country?.independent ? <FaFlag /> : <LuFlagOff />} Independente
           </p>
           {country?.independent ? "Sim" : "Não"}
         </span>
