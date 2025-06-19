@@ -1,14 +1,14 @@
 import { systemPaths } from "@/constants/paths";
+import { ALL_CONTINENTS, INDEPENDENT_LABELS } from "@/constants/varibles";
 import { Order } from "@/types/types";
 import { usePathname, useRouter } from "next/navigation";
 import { BsFilter } from "react-icons/bs";
 import { FaArrowRight, FaFlag, FaGlobe, FaSort, FaTimes } from "react-icons/fa";
+import { LuFlagOff } from "react-icons/lu";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import BreadCrumb from "../BreadCrumb";
 import Input from "../Input";
 import styles from "./page.module.css";
-import { ALL_CONTINENTS, INDEPENDENT_LABELS } from "@/constants/varibles";
-import { LuFlagOff } from "react-icons/lu";
 
 export enum FiltersTypes {
   ORDER = "order",

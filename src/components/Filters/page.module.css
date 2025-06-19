@@ -35,12 +35,12 @@
         position: absolute;
         top: 48px;
         left: 0;
-        gap: 24px;
-        padding: 16px;
+        gap: 8px;
+        padding: 0px;
         z-index: 99;
-        background-color: var(--primary-dark);
+        backdrop-filter: blur(24px);
         border-radius: 4px;
-        width: 350px;
+        width: fit-content;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -48,16 +48,25 @@
         opacity: 0;
         visibility: hidden;
 
+
         >div {
           display: flex;
           align-items: flex-start;
           flex-direction: column;
           width: 100%;
+          padding-bottom: 8px;
+          border: 2px solid var(--primary-dark);
+          border-radius: 4px;
+          padding: 4px;
 
-          span {
+          >span {
             font-size: 16px;
             font-weight: 800;
             color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 8px;
             width: 100%;
           }
 
@@ -112,7 +121,8 @@
             align-items: center;
             justify-content: flex-start;
             flex-direction: row;
-            gap: 4px;
+            gap: 8px;
+
 
             .checkboxInput {
               width: 16px;
@@ -148,7 +158,7 @@
           display: flex;
           align-items: center;
           justify-content: flex-start;
-          gap: 24px;
+          gap: 28px;
           width: 100%;
 
           .checkbox {
@@ -288,14 +298,6 @@
     .order {
       >div {
         gap: 2px;
-      }
-    }
-
-    .content {
-      .filterGroup {
-        .filterPopUp {
-          width: 90vw;
-        }
       }
     }
   }
