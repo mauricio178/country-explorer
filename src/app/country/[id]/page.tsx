@@ -26,17 +26,50 @@ type PageProps = {
 };
 
 type CountryInfo = {
+  /*
+  Name of the country
+  */
   name: string;
+  /*
+  Native name of the country
+  */
   nativeName: string;
+  /*
+  Flag of the country
+  */
   flag: string;
+  /*
+  Capital of the country
+  */
   capital: string;
+  /*
+  Languages of the country
+  */
   languages: string;
+  /*
+  Currencies of the country
+  */
   currencies: string;
+  /*
+  Region of the country
+  */
   region: string;
+  /*
+  Independent of the country
+  */
   independent: boolean;
+  /*
+  Subregion of the country
+  */
   subregion: string;
-  favorite: boolean;
+  /*
+  Cioc of the country
+  */
   cioc: string;
+  /*
+  Favorite of the country
+  */
+  favorite: boolean;
 };
 
 export default function CountryPage({ params }: PageProps) {

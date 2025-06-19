@@ -13,7 +13,13 @@ import { FaGlobe } from "react-icons/fa";
 import { ALL_CONTINENTS } from "@/constants/varibles";
 
 interface CountryCardProps {
+  /*
+  Country object
+  */
   country: CountryRequestProps;
+  /*
+  Function to handle favorite country
+  */
   handleFavorite: () => void;
 }
 

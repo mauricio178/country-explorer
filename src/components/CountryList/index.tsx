@@ -4,10 +4,25 @@ import CountryCard from "../CountryCard";
 import styles from "./page.module.css";
 
 interface CountryListProps {
+  /*
+  Array of countries
+  */
   countries: CountryRequestProps[];
+  /*
+  Array of countries ids
+  */
   filteredCountries: string[];
+  /*
+  Search term
+  */
   search: string;
+  /*
+  Loading state
+  */
   isLoading: boolean;
+  /*
+  Function to handle favorite country
+  */
   handleFavorite: (country: CountryRequestProps) => void;
 }
 

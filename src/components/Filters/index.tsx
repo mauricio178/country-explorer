@@ -16,14 +16,41 @@ export enum FiltersTypes {
 }
 
 export interface FilterProps {
+  /*
+  Order type
+  */
   order: string;
+  /*
+  Array of favorites
+  */
   favorites: string[];
+  /*
+  Function to handle filter
+  */
   handleFilter: (type: FiltersTypes, order?: Order, value?: string) => void;
+  /*
+  Function to clear search
+  */
   onClearSearch: () => void;
+  /*
+  Array of active filters
+  */
   activeFilters: string[];
+  /*
+  Array of continents
+  */
   continents: { id: number; name: string; color: string }[];
+  /*
+  Placeholder for search input
+  */
   placeholder?: string;
+  /*
+  Value for search input
+  */
   value?: string;
+  /*
+  Icon for search input
+  */
   icon?: React.ReactNode;
 }
 
