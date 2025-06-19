@@ -15,6 +15,7 @@ export type CountryRequestProps = {
   favorite: boolean;
   capital: any;
   languages: any;
+  population: number;
   currencies: {
     name: string;
     symbol: string;

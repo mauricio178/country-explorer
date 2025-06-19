@@ -19,6 +19,7 @@ export const countryFields = [
   "cioc",
   "currencies",
   "languages",
+  "population",
 ];
 
 export const getCountriesEspecification = async (
