@@ -92,18 +92,21 @@ export default function CountryPage({ params }: PageProps) {
 
     if (!country) return;
 
+    const nativeNameKey = Object.keys(country.name.nativeName)[0];
+    const nativeName = nativeNameKey
+      ? country.name.nativeName[nativeNameKey]
+      : undefined;
+    const currencyKey = Object.keys(country.currencies)[0];
+    const currency = currencyKey ? country.currencies[currencyKey] : undefined;
+
     const formattedCountry: CountryInfo = {
       name: country.name.common,
-      nativeName:
-        // @ts-expect-error - This is a workaround to get the native name of the country
-        Object.values(country.name.nativeName || {})[0]?.official || "",
+      nativeName: nativeName?.official || "",
       flag: country.flags.png,
-      capital: country.capital,
+      capital: country.capital.join(", "),
       currencies: {
-        // @ts-expect-error - This is a workaround to get the name of the currency
-        name: Object.values(country.currencies || {})[0]?.name || "",
-        // @ts-expect-error - This is a workaround to get the symbol of the currency
-        symbol: Object.values(country.currencies || {})[0]?.symbol || "",
+        name: currency?.name || "",
+        symbol: currency?.symbol || "",
       },
       region: country.region,
       subregion: country.subregion,
@@ -180,7 +183,9 @@ export default function CountryPage({ params }: PageProps) {
 
       <div className={styles.countryData}>
         <div className={styles.countryFlag}>
-          <img src={country?.flag} alt={country?.name} />
+          {country?.flag ? (
+            <img src={country.flag} alt={country.name} />
+          ) : null}
         </div>
 
         <div className={styles.countryInfo}>

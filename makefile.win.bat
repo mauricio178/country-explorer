@@ -14,7 +14,7 @@ docker build -t country-explorer-frontend --no-cache .
 
 :: Inicia o container
 docker run --name country-explorer-frontend-container ^
-           -e NEXT_PUBLIC_API_URL="https://restcountries.com/v3.1" ^
+           -e REST_COUNTRIES_API_KEY="%REST_COUNTRIES_API_KEY%" ^
            -p 3000:3000 country-explorer-frontend
 
 pause

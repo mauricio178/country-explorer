@@ -1,8 +1,5 @@
 "use client";
-import {
-  CountrySpecification,
-  getCountriesEspecification,
-} from "@/actions/countries";
+import { getCountries } from "@/actions/countries";
 import CountryList from "@/components/CountryList";
 import Filters, { FiltersTypes } from "@/components/Filters";
 import {
@@ -52,11 +49,13 @@ export default function Home() {
       return;
     }
 
-    const countriesResponse = await getCountriesEspecification(
-      CountrySpecification.ALL
-    );
+    const countriesResponse = await getCountries();
 
-    if (!countriesResponse) return;
+    if (!countriesResponse) {
+      toast.error(LABELS.COUNTRIES_LOAD_FAILED);
+      setIsLoading(false);
+      return;
+    }
 
     const formattedCountries = countriesResponse
       .sort((a: CountryRequestProps, b: CountryRequestProps) =>

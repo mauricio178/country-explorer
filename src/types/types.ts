@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 export type CountryRequestProps = {
   id: string;
   flags: {
@@ -10,18 +8,22 @@ export type CountryRequestProps = {
   name: {
     common: string;
     official: string;
-    nativeName: any | undefined;
+    nativeName: Record<string, { common: string; official: string }>;
   };
   favorite: boolean;
-  capital: any;
-  languages: any;
-  currencies: {
-    name: string;
-    symbol: string;
-  };
-  region: any;
+  capital: string[];
+  languages: Record<string, string>;
+  currencies: Record<
+    string,
+    {
+      name: string;
+      symbol: string;
+    }
+  >;
+  region: string;
   independent: boolean;
-  subregion: any;
+  subregion: string;
+  cioc: string;
 };
 
 export enum Order {
