@@ -20,6 +20,7 @@ const RESPONSE_FIELDS = [
   "currencies",
   "codes.cioc",
   "classification.sovereign",
+  "population",
 ].join(",");
 
 type NativeName = {
@@ -57,6 +58,7 @@ type CountryV5 = {
   classification?: {
     sovereign?: boolean;
   };
+  population?: number;
 };
 
 type CountriesApiResponse = {
@@ -127,6 +129,7 @@ function mapCountry(country: CountryV5): CountryRequestProps {
     independent: country.classification?.sovereign ?? false,
     subregion: country.subregion ?? "",
     cioc: country.codes?.cioc ?? "",
+    population: country.population ?? 0,
   };
 }
 

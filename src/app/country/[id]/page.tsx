@@ -3,6 +3,7 @@
 import { systemPaths } from "@/constants/paths";
 import { STORAGE_KEY_ALL_COUNTRIES } from "@/constants/varibles";
 import { CountryRequestProps } from "@/types/types";
+import { formatPopulationValue } from "@/utils/utils";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { BsTranslate } from "react-icons/bs";
@@ -16,10 +17,11 @@ import {
   FaMapPin,
   FaRegHeart,
   FaTag,
+  FaUsers,
 } from "react-icons/fa";
-import { FaLocationDot } from "react-icons/fa6";
-import styles from "./page.module.css";
+import { LuFlagOff } from "react-icons/lu";
 import { toast } from "react-toastify";
+import styles from "./page.module.css";
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -73,6 +75,10 @@ type CountryInfo = {
   Favorite of the country
   */
   favorite: boolean;
+  /*
+  Population of the country
+  */
+  population: string;
 };
 
 export default function CountryPage({ params }: PageProps) {
@@ -113,6 +119,7 @@ export default function CountryPage({ params }: PageProps) {
       languages: Object.values(country.languages || {}).join(", ") || "",
       favorite: country.favorite,
       independent: country.independent,
+      population: formatPopulationValue(country.population),
       cioc: country.cioc,
     };
 
@@ -191,7 +198,7 @@ export default function CountryPage({ params }: PageProps) {
         <div className={styles.countryInfo}>
           <h1>
             <p>
-              <FaTag /> Nome
+              <FaTag /> Nome - Capital
             </p>
             {country?.name}
           </h1>
@@ -207,19 +214,14 @@ export default function CountryPage({ params }: PageProps) {
       <div className={styles.moreDetails}>
         <span>
           <p>
-            <FaMapPin /> Continente
+            <FaGlobe />
+            Continente, Subregião
           </p>
-          {country?.region || "-"}
+          {country?.region || "-"}, {country?.subregion || "-"}
         </span>
         <span>
           <p>
-            <FaGlobe /> Subregião
-          </p>
-          {country?.subregion || "-"}
-        </span>
-        <span>
-          <p>
-            <FaLocationDot /> Capital
+            <FaMapPin /> Capital
           </p>
           {country?.capital && country?.capital.length > 0
             ? country?.capital
@@ -227,10 +229,18 @@ export default function CountryPage({ params }: PageProps) {
         </span>
         <span>
           <p>
+            <FaUsers />
+            População
+          </p>
+          {country?.population || "-"}
+        </span>
+
+        <span>
+          <p>
             <FaCoins /> Moeda
           </p>
           {country?.currencies.name && country?.currencies.symbol
-            ? `(${country?.currencies.symbol}) - ${country?.currencies.name}`
+            ? `${country?.currencies.symbol} - ${country?.currencies.name}`
             : "-"}
         </span>
         <span>
@@ -242,7 +252,7 @@ export default function CountryPage({ params }: PageProps) {
         </span>
         <span>
           <p>
-            <FaFlag /> Independente
+            {country?.independent ? <FaFlag /> : <LuFlagOff />} Independente
           </p>
           {country?.independent ? "Sim" : "Não"}
         </span>

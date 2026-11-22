@@ -21,6 +21,7 @@ export type CountryRequestProps = {
     }
   >;
   region: string;
+  population: number;
   independent: boolean;
   subregion: string;
   cioc: string;
