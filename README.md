@@ -12,6 +12,9 @@ You can acess the current project runnig at link: [https://wrld-xpl.netlify.app]
 
 Make sure you have all dependencies necessary installed. 
 BUILD: `npm i` or `npm install`
+
+Copy `.env.example` to `.env.local` and set `REST_COUNTRIES_API_KEY` with a key from https://restcountries.com/sign-up. The app calls Countries API v5 at `https://api.restcountries.com/countries/v5`.
+
 RUN: `npm run dev`
 The application will run on port `3001` or `3000` by default
 

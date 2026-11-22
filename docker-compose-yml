@@ -10,3 +10,4 @@ services:
         - /app/node_modules
     environment:
       - NODE_ENV=development
+      - REST_COUNTRIES_API_KEY=${REST_COUNTRIES_API_KEY}
